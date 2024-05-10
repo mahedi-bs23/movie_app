@@ -77,15 +77,24 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 16.sp,
                 ),
+
                 ValueListenableBuilder(
-                  valueListenable: loginViewmodel.passwordController,
-                  builder: (BuildContext context,
-                      TextEditingValue textEditingValue, _) {
-                    return PasswordTexTField(
-                      passwordTextEditingController:
-                          loginViewmodel.passwordController,
-                      errorText: loginViewmodel.getPasswordError(),
-                      hintText: "Password",
+                  valueListenable: loginViewmodel.shouldShowPassword,
+                  builder: (context, shouldShowPassword, _) {
+                    return ValueListenableBuilder(
+                      valueListenable: loginViewmodel.passwordController,
+                      builder: (context, passwordController, _) {
+                        return PasswordTexTField(
+                          passwordTextEditingController:
+                              loginViewmodel.passwordController,
+                          errorText: loginViewmodel.getPasswordError(),
+                          shouldShowPassword: shouldShowPassword,
+                          hintText: "Password",
+                          onClickedTogglePassWordButton: () {
+                            loginViewmodel.onPasswordShowChanged();
+                          },
+                        );
+                      },
                     );
                   },
                 ),

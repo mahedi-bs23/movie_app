@@ -9,7 +9,7 @@ class LoginViewmodel{
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  final ValueNotifier<bool> passwordShow = ValueNotifier(false);
+  final ValueNotifier<bool> shouldShowPassword = ValueNotifier(true);
 
   final ValueNotifier<bool> shouldNavigate = ValueNotifier(false);
 
@@ -34,11 +34,8 @@ class LoginViewmodel{
 
   void onPasswordShowChanged(){
     print("On password show method clicked!");
-    print(passwordShow.value);
-    passwordShow.value = !passwordShow.value;
-    passwordShow.notifyListeners();
-    print(passwordShow.value);
-
+    print(shouldShowPassword.value);
+    shouldShowPassword.value = !shouldShowPassword.value;
   }
 
 

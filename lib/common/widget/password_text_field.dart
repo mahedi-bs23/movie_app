@@ -7,84 +7,56 @@ class PasswordTexTField extends StatelessWidget {
   final TextEditingController passwordTextEditingController;
   final String? errorText;
   final String? hintText;
+  final bool shouldShowPassword;
+  final VoidCallback onClickedTogglePassWordButton;
 
-  //final bool passwordShow;
-
-  PasswordTexTField({
-    super.key,
-    required this.passwordTextEditingController,
-    required this.hintText,
-    required this.errorText,
-    //required this.passwordShow,
-  });
-
-  final LoginViewmodel loginViewmodel = LoginViewmodel();
+  PasswordTexTField(
+      {super.key,
+      required this.passwordTextEditingController,
+      required this.hintText,
+      required this.errorText,
+      required this.shouldShowPassword,
+      required this.onClickedTogglePassWordButton});
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: passwordTextEditingController,
-
-      builder: (BuildContext context,
-          TextEditingValue textEditingValue, _) {
-        return TextField(
-          controller: passwordTextEditingController,
-          style: TextStyle(color: Colors.white54),
-          cursorColor: Colors.white,
-          ///keyboardType: TextInputType.visiblePassword,
-          obscureText: loginViewmodel.passwordShow.value,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white24,
-            hintText: hintText,
-            hintStyle: TextStyle(
-              color: Colors.white60,
-            ),
-            suffixIcon: InkWell(
-              onTap: () {
-                loginViewmodel.onPasswordShowChanged();
-              },
-              child: Icon(loginViewmodel.passwordShow.value==true
-                  ? Icons.visibility_outlined
-                  : Icons.visibility_off_outlined),
-            ),
-            suffixIconColor: Colors.grey,
-            errorText: errorText,
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10).r,
-              borderSide: BorderSide(
-                width: 1.r,
-                color: Colors.white60,
-              ),
-            ),
-           /* enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10).r,
-              borderSide: BorderSide(
-                width: 1.r,
-                color: Colors.white60,
-              ),
-            ),*/
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10).r,
-              borderSide: BorderSide(
-                width: 1.r,
-                color: Colors.white60,
-              ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                width: 1,
-                color: PasswordValidator.errorMsg.isEmpty
-                    ? Colors.white60
-                    : PasswordValidator.errorMsg == "Invalid Password"
-                        ? Colors.red
-                        : Colors.white60, // Customize error border color here
-              ),
-            ),
+    return TextField(
+      controller: passwordTextEditingController,
+      style: TextStyle(color: Colors.white54),
+      cursorColor: Colors.white,
+      obscureText: !shouldShowPassword,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white24,
+        hintText: hintText,
+        hintStyle: const TextStyle(
+          color: Colors.white60,
+        ),
+        suffixIcon: InkWell(
+          onTap: () {
+            onClickedTogglePassWordButton();
+          },
+          child: Icon(shouldShowPassword == true
+              ? Icons.visibility_outlined
+              : Icons.visibility_off_outlined),
+        ),
+        suffixIconColor: Colors.grey,
+        errorText: errorText,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10).r,
+          borderSide: BorderSide(
+            width: 1.r,
+            color: Colors.white60,
           ),
-        );
-      }
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10).r,
+          borderSide: BorderSide(
+            width: 1.r,
+            color: Colors.white60,
+          ),
+        )
+      ),
     );
   }
 }

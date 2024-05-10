@@ -1,29 +1,15 @@
-class PasswordValidator{
+class PasswordValidator {
   static String errorMsg = "";
-  static bool isValid(String password){
-    if(password.isEmpty) {
-      return false;
-    }
-    else{
-      if(password.length < 6){
-        errorMsg = "Invalid Password";
-        return false;
-      }
-      else{
-        return true;
-      }
-    }
-   /// return (password.isNotEmpty && password.length > 6);
+
+  static bool isValid(String password) {
+    return getError(password) == null;
   }
 
-
-  static String? getError(String password){
-    if(isValid(password)){
-      return null;
-    }
-    else {
-      return errorMsg;
+  static String? getError(String password) {
+    if (password.isEmpty) {
+      return "Password can't be empty";
+    } else if (password.length <= 8) {
+      return "Password can't  be less than 8";
     }
   }
-
 }
