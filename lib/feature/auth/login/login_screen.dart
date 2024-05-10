@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/elevated_button.dart';
 import 'package:movie_app/common/widget/email_text_field.dart';
-import 'package:movie_app/common/widget/input_decoration.dart';
 import 'package:movie_app/common/widget/password_text_field.dart';
 import 'package:movie_app/feature/auth/login/login_viewmodel.dart';
-import 'package:movie_app/feature/auth/login/validator/email_validator.dart';
 import 'package:movie_app/feature/home/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -65,29 +63,33 @@ class LoginScreen extends StatelessWidget {
                   height: 64.sp,
                 ),
                 ValueListenableBuilder(
-                    valueListenable: loginViewmodel.emailController,
-                    builder: (BuildContext context,
-                        TextEditingValue textEditingValue, _) {
-                      return EmailTexTField(
-                        emailTextEditingController:
-                            loginViewmodel.emailController,
-                        errorText: loginViewmodel.getEmailError(),
-                        hintText: "Email",
-                      );
-                    }),
+                  valueListenable: loginViewmodel.emailController,
+                  builder: (BuildContext context,
+                      TextEditingValue textEditingValue, _) {
+                    return EmailTexTField(
+                      emailTextEditingController:
+                          loginViewmodel.emailController,
+                      errorText: loginViewmodel.getEmailError(),
+                      hintText: "Email",
+                    );
+                  },
+                ),
                 SizedBox(
                   height: 16.sp,
                 ),
                 ValueListenableBuilder(
-                    valueListenable: loginViewmodel.passwordController,
-                    builder: (BuildContext context, TextEditingValue textEditingValue, _) {
-                      return PasswordTexTField(
-                        passwordTextEditingController: loginViewmodel.passwordController,
-                        errorText: loginViewmodel.getEmailError(),
-                        hintText: "Password",
-                      );
-                    }
+                  valueListenable: loginViewmodel.passwordController,
+                  builder: (BuildContext context,
+                      TextEditingValue textEditingValue, _) {
+                    return PasswordTexTField(
+                      passwordTextEditingController:
+                          loginViewmodel.passwordController,
+                      errorText: loginViewmodel.getPasswordError(),
+                      hintText: "Password",
+                    );
+                  },
                 ),
+
                 ///_passField(),
                 SizedBox(
                   height: 40.sp,
