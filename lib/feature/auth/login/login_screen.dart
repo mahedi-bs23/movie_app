@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/elevated_button.dart';
+import 'package:movie_app/common/widget/email_text_field.dart';
 import 'package:movie_app/common/widget/input_decoration.dart';
+import 'package:movie_app/common/widget/password_text_field.dart';
 import 'package:movie_app/feature/auth/login/login_viewmodel.dart';
 import 'package:movie_app/feature/auth/login/validator/email_validator.dart';
 import 'package:movie_app/feature/home/home_screen.dart';
@@ -13,7 +16,6 @@ class LoginScreen extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
     loginViewmodel.shouldNavigate.addListener(() {
@@ -24,7 +26,7 @@ class LoginScreen extends StatelessWidget {
             builder: (context) => const HomeScreen(),
           ),
         );
-      }else{
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Please correct the errors in the form.'),
@@ -62,11 +64,31 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 64.sp,
                 ),
-                _emailField(),
+                ValueListenableBuilder(
+                    valueListenable: loginViewmodel.emailController,
+                    builder: (BuildContext context,
+                        TextEditingValue textEditingValue, _) {
+                      return EmailTexTField(
+                        emailTextEditingController:
+                            loginViewmodel.emailController,
+                        errorText: loginViewmodel.getEmailError(),
+                        hintText: "Email",
+                      );
+                    }),
                 SizedBox(
                   height: 16.sp,
                 ),
-                _passField(),
+                ValueListenableBuilder(
+                    valueListenable: loginViewmodel.passwordController,
+                    builder: (BuildContext context, TextEditingValue textEditingValue, _) {
+                      return PasswordTexTField(
+                        passwordTextEditingController: loginViewmodel.passwordController,
+                        errorText: loginViewmodel.getEmailError(),
+                        hintText: "Password",
+                      );
+                    }
+                ),
+                ///_passField(),
                 SizedBox(
                   height: 40.sp,
                 ),
@@ -79,7 +101,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _emailField() {
+  /*Widget _emailField() {
     return ValueListenableBuilder(
         valueListenable: loginViewmodel.emailController,
         builder: (BuildContext context, TextEditingValue textEditingValue, _) {
@@ -87,17 +109,13 @@ class LoginScreen extends StatelessWidget {
             key: _formKey,
             child: SizedBox(
               child: TextFormField(
-
-
                 controller: loginViewmodel.emailController,
                 style: TextStyle(color: Colors.white54),
                 cursorColor: Colors.white,
                 keyboardType: TextInputType.emailAddress,
                 decoration: buildInputDecoration("email address"),
-                validator: (String? value){
-
+                validator: (String? value) {
                   return 'Please a Enter Email';
-
                 },
                 onChanged: (String value) {
                   loginViewmodel.onEmailChanged(value);
@@ -106,58 +124,68 @@ class LoginScreen extends StatelessWidget {
             ),
           );
         });
-  }
+  }*/
 
   Widget _passField() {
     return ValueListenableBuilder(
         valueListenable: loginViewmodel.passwordController,
         builder: (BuildContext context, TextEditingValue textEditingValue, _) {
           return SizedBox(
-            child: TextFormField(
+            child: TextField(
               controller: loginViewmodel.passwordController,
               style: TextStyle(color: Colors.white54),
               cursorColor: Colors.white,
               keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
               decoration: InputDecoration(
-                errorText: loginViewmodel.getPasswordError(),
                 filled: true,
                 fillColor: Colors.white24,
-                suffixIcon: Icon(
-                  Icons.visibility,
+                hintText: "Password",
+                hintStyle: TextStyle(
                   color: Colors.white60,
                 ),
-                hintText: "password",
-                hintStyle: const TextStyle(
-                  color: Colors.white60,
+                suffixIcon: InkWell(
+                  onTap: () {
+                    loginViewmodel.passwordShow.value =
+                        !loginViewmodel.passwordShow.value;
+                  },
+                  child: Icon(!loginViewmodel.passwordShow.value
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined),
                 ),
+                suffixIconColor: Colors.grey,
+                errorText: loginViewmodel.getPasswordError(),
                 focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10).r,
-                    borderSide: BorderSide(
-                      width: 1.r,
-                      color: Colors.white60,
-                    )),
-
-                /*enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10).r,
-              borderSide: BorderSide(
-                width: 1.r,
-                color: Colors.white60,
-              )
-          ),*/
-
+                  borderRadius: BorderRadius.circular(10).r,
+                  borderSide: BorderSide(
+                    width: 1.r,
+                    color: Colors.white60,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10).r,
+                  borderSide: BorderSide(
+                    width: 1.r,
+                    color: Colors.white60,
+                  ),
+                ),
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10).r,
-                    borderSide: BorderSide(
-                      width: 1.r,
-                      color: Colors.white60,
-                    )),
+                  borderRadius: BorderRadius.circular(10).r,
+                  borderSide: BorderSide(
+                    width: 1.r,
+                    color: Colors.white60,
+                  ),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    width: 1,
+                    color: loginViewmodel.isValid
+                        ? Colors.white60
+                        : Colors.red, // Customize error border color here
+                  ),
+                ),
               ),
-              validator: (String? value){
-                if(value!.isEmpty){
-                  return "Please Enter Password";
-                }
-                return null;
-              },
               onChanged: (String value) {
                 loginViewmodel.onPasswordChanged(value);
               },

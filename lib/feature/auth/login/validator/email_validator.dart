@@ -1,11 +1,17 @@
 class EmailValidator {
+  static String errorMsg = "";
   static bool isValid(String email) {
-    if(email.isNotEmpty && email.contains('@') && email.contains('.')){
-      return true;
+    if(email.isEmpty){
+      return false;
     }
     else {
-      print(email);
-      return false;
+      if(email.contains('@') && email.contains('.')){
+        return true;
+      }
+      else {
+        errorMsg = "Invalid Email";
+        return false;
+      }
     }
   }
 
@@ -14,7 +20,7 @@ class EmailValidator {
       return null;
     }
     else {
-      return "Invalid Email";
+      return errorMsg;
     }
   }
 

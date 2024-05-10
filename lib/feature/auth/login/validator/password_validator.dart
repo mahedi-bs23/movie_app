@@ -1,6 +1,19 @@
 class PasswordValidator{
+  static String errorMsg = "";
   static bool isValid(String password){
-    return (password.isNotEmpty && password.length > 6);
+    if(password.isEmpty) {
+      return false;
+    }
+    else{
+      if(password.length < 6){
+        errorMsg = "Invalid Password";
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
+   /// return (password.isNotEmpty && password.length > 6);
   }
 
 
@@ -9,7 +22,7 @@ class PasswordValidator{
       return null;
     }
     else {
-      return "Invalid Password";
+      return errorMsg;
     }
   }
 

@@ -13,7 +13,7 @@ class LoginViewmodel{
 
   final ValueNotifier<bool> shouldNavigate = ValueNotifier(false);
 
-  bool get isValid => EmailValidator.isValid(emailController.text)=="ok" &&
+  bool get isValid => EmailValidator.isValid(emailController.text) &&
       PasswordValidator.isValid(passwordController.text);
 
   String? getEmailError(){
@@ -24,11 +24,16 @@ class LoginViewmodel{
     return PasswordValidator.getError(passwordController.text);
   }
 
-  void onEmailChanged (String value){
+  void onEmailChanged(String value) {
     emailController.text = value;
   }
-  void onPasswordChanged(String value){
+
+  void onPasswordChanged(String value) {
     passwordController.text = value;
+  }
+
+  void onPasswordShowChanged(){
+    passwordShow.value = !passwordShow.value;
   }
 
 
