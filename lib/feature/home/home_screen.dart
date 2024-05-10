@@ -9,7 +9,11 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.black54,
       body: SafeArea(
         child: Center(
-          child: Text("Home Page"),
+          child: Text("Home Page",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         )
       ),
     );

@@ -3,12 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/elevated_button.dart';
 import 'package:movie_app/common/widget/input_decoration.dart';
 import 'package:movie_app/feature/auth/login/login_viewmodel.dart';
+import 'package:movie_app/feature/auth/login/validator/email_validator.dart';
 import 'package:movie_app/feature/home/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final LoginViewmodel loginViewmodel = LoginViewmodel();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +22,12 @@ class LoginScreen extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => const HomeScreen(),
+          ),
+        );
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please correct the errors in the form.'),
           ),
         );
       }
@@ -73,16 +83,26 @@ class LoginScreen extends StatelessWidget {
     return ValueListenableBuilder(
         valueListenable: loginViewmodel.emailController,
         builder: (BuildContext context, TextEditingValue textEditingValue, _) {
-          return SizedBox(
-            child: TextFormField(
-              controller: loginViewmodel.emailController,
-              style: TextStyle(color: Colors.white54),
-              cursorColor: Colors.white,
-              keyboardType: TextInputType.emailAddress,
-              decoration: buildInputDecoration("email address"),
-              onChanged: (String value) {
-                loginViewmodel.onEmailChanged(value);
-              },
+          return Form(
+            key: _formKey,
+            child: SizedBox(
+              child: TextFormField(
+
+
+                controller: loginViewmodel.emailController,
+                style: TextStyle(color: Colors.white54),
+                cursorColor: Colors.white,
+                keyboardType: TextInputType.emailAddress,
+                decoration: buildInputDecoration("email address"),
+                validator: (String? value){
+
+                  return 'Please a Enter Email';
+
+                },
+                onChanged: (String value) {
+                  loginViewmodel.onEmailChanged(value);
+                },
+              ),
             ),
           );
         });
@@ -99,6 +119,7 @@ class LoginScreen extends StatelessWidget {
               cursorColor: Colors.white,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
+                errorText: loginViewmodel.getPasswordError(),
                 filled: true,
                 fillColor: Colors.white24,
                 suffixIcon: Icon(
@@ -131,6 +152,12 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.white60,
                     )),
               ),
+              validator: (String? value){
+                if(value!.isEmpty){
+                  return "Please Enter Password";
+                }
+                return null;
+              },
               onChanged: (String value) {
                 loginViewmodel.onPasswordChanged(value);
               },
