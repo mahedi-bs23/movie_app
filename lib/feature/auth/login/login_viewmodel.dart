@@ -36,6 +36,7 @@ class LoginViewmodel{
     print("On password show method clicked!");
     print(passwordShow.value);
     passwordShow.value = !passwordShow.value;
+    passwordShow.notifyListeners();
     print(passwordShow.value);
 
   }

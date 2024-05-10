@@ -128,7 +128,7 @@ class LoginScreen extends StatelessWidget {
         });
   }*/
 
-  Widget _passField() {
+  /*Widget _passField() {
     return ValueListenableBuilder(
         valueListenable: loginViewmodel.passwordController,
         builder: (BuildContext context, TextEditingValue textEditingValue, _) {
@@ -194,7 +194,7 @@ class LoginScreen extends StatelessWidget {
             ),
           );
         });
-  }
+  }*/
 
   Widget _loginButton() {
     return MyElevatedButton(
