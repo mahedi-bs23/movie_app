@@ -1,7 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/feature/home/model/top_movie_model.dart';
+import 'package:movie_app/feature/home/model/movie_model.dart';
+import 'package:movie_app/feature/home/widget/top_movies.dart';
+import 'package:movie_app/feature/home/widget/upcoming_movies.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -49,18 +54,88 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 20.sp,
                 ),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   height: 220.sp,
-                  decoration: BoxDecoration(
-                    //color: Colors.red,
-                    image: const DecorationImage(
-                      image: AssetImage(
-                        'assets/openeimer.jpg',
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(15).r,
+                  child: PageView.builder(
+                    itemCount: specialMovies.length,
+                    pageSnapping: true,
+                    itemBuilder: (context, pagePosition) {
+                      return Stack(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: 220.sp,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  specialMovies[pagePosition].image,
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                              borderRadius: BorderRadius.circular(15).r,
+                            ),
+                          ),
+                          Positioned(
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            child: ClipRect(
+                              // Clip the filter to half
+                              child: BackdropFilter(
+                                filter:
+                                    ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                                // Adjust blur intensity as needed
+                                child: Container(
+                                  height: 70.sp,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white12,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(15.r),
+                                      bottomRight: Radius.circular(15.r),
+                                    ),
+                                    border: Border(
+                                      top: BorderSide(
+                                        color: Colors.white38,
+                                        width: .5.sp,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 50.sp,
+                            bottom: 10.sp,
+                            child: SizedBox(
+                              height: 4.sp,
+                              width: 50.sp,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: specialMovies.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    width:
+                                        index == pagePosition ? 20.sp : 4.sp,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(2.r),
+                                    ),
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return SizedBox(
+                                    width: 3.sp,
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
                 SizedBox(
@@ -100,48 +175,8 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: topMovies.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 100.sp,
-                            height: 150.sp,
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  topMovies[index].image,
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(15).r,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8.sp,
-                          ),
-                          SizedBox(
-                            width: 100.sp,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              topMovies[index].name,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            '2023 * PG * 2h 20m',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey,
-                              fontSize: 8.sp,
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                      return TopMovies(
+                        selectedIndex: index,
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
@@ -178,6 +213,27 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 8.sp,
+                ),
+                SizedBox(
+                  height: 200.sp,
+                  width: double.infinity,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: topMovies.length,
+                    itemBuilder: (context, index) {
+                      return UpcomingMovies(
+                        selectedIndex: index,
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(
+                        width: 15.sp,
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -186,3 +242,5 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+///filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0), // Adjust blur intensity as needed
