@@ -38,10 +38,9 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           'Movie Hub',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600
-                          ),
+                              color: Colors.white,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -162,9 +161,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-
     );
-
   }
 }
 
