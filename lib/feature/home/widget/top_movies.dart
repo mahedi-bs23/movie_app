@@ -4,13 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
 
 class TopMovies extends StatelessWidget {
-
   final int selectedIndex;
-  const TopMovies({
-    super.key,
-    required this.selectedIndex
 
-  });
+  const TopMovies({super.key, required this.selectedIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +43,7 @@ class TopMovies extends StatelessWidget {
           ),
         ),
         Text(
-          '2023 * PG * 2h 20m',
+          '2023 \u2022 PG \u2022 2h 20m',
           style: TextStyle(
             fontWeight: FontWeight.w600,
             color: Colors.grey,
