@@ -16,7 +16,7 @@ class Movie {
 
 List<Movie> specialMovies = [
   Movie(
-    name: "Openeimer",
+    name: "Oppenheimer",
     image: "assets/openeimer.jpg",
     releaseYear: "2010",
     time: "2h 30m",
@@ -42,6 +42,13 @@ List<Movie> specialMovies = [
     releaseYear: "2010",
     time: "2h 30m",
     rating: "5.1",
+  ),
+  Movie(
+    name: "Kalki",
+    image: "assets/kalki.jpg",
+    releaseYear: "2010",
+    time: "2h 30m",
+    rating: "5.9",
   ),
   /*Movie(
     name: "Kalki",
