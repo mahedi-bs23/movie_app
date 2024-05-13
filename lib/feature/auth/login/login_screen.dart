@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                 ValueListenableBuilder(
                   valueListenable: loginViewmodel.emailController,
                   builder: (BuildContext context,
-                      TextEditingValue textEditingValue, _) {
+                      emailController, _) {
                     return EmailTexTField(
                       emailTextEditingController:
                           loginViewmodel.emailController,
@@ -104,6 +104,9 @@ class LoginScreen extends StatelessWidget {
                   height: 40.sp,
                 ),
                 _loginButton(),
+                SizedBox(height: 16.sp,),
+                _googleSignInButton(),
+
               ],
             ),
           ),
@@ -112,103 +115,12 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  /*Widget _emailField() {
-    return ValueListenableBuilder(
-        valueListenable: loginViewmodel.emailController,
-        builder: (BuildContext context, TextEditingValue textEditingValue, _) {
-          return Form(
-            key: _formKey,
-            child: SizedBox(
-              child: TextFormField(
-                controller: loginViewmodel.emailController,
-                style: TextStyle(color: Colors.white54),
-                cursorColor: Colors.white,
-                keyboardType: TextInputType.emailAddress,
-                decoration: buildInputDecoration("email address"),
-                validator: (String? value) {
-                  return 'Please a Enter Email';
-                },
-                onChanged: (String value) {
-                  loginViewmodel.onEmailChanged(value);
-                },
-              ),
-            ),
-          );
-        });
-  }*/
-
-  /*Widget _passField() {
-    return ValueListenableBuilder(
-        valueListenable: loginViewmodel.passwordController,
-        builder: (BuildContext context, TextEditingValue textEditingValue, _) {
-          return SizedBox(
-            child: TextField(
-              controller: loginViewmodel.passwordController,
-              style: TextStyle(color: Colors.white54),
-              cursorColor: Colors.white,
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white24,
-                hintText: "Password",
-                hintStyle: TextStyle(
-                  color: Colors.white60,
-                ),
-                suffixIcon: InkWell(
-                  onTap: () {
-                    loginViewmodel.passwordShow.value =
-                        !loginViewmodel.passwordShow.value;
-                  },
-                  child: Icon(!loginViewmodel.passwordShow.value
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined),
-                ),
-                suffixIconColor: Colors.grey,
-                errorText: loginViewmodel.getPasswordError(),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10).r,
-                  borderSide: BorderSide(
-                    width: 1.r,
-                    color: Colors.white60,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10).r,
-                  borderSide: BorderSide(
-                    width: 1.r,
-                    color: Colors.white60,
-                  ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10).r,
-                  borderSide: BorderSide(
-                    width: 1.r,
-                    color: Colors.white60,
-                  ),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    width: 1,
-                    color: loginViewmodel.isValid
-                        ? Colors.white60
-                        : Colors.red, // Customize error border color here
-                  ),
-                ),
-              ),
-              onChanged: (String value) {
-                loginViewmodel.onPasswordChanged(value);
-              },
-            ),
-          );
-        });
-  }*/
 
   Widget _loginButton() {
     return MyElevatedButton(
       buttonText: 'Sign In',
       backgroundColor: Colors.blue.shade600,
+      buttonTextColor: Colors.white,
       // Set your desired background color
       onPressed: () {
         loginViewmodel.onLoginButtonClicked();
@@ -216,4 +128,18 @@ class LoginScreen extends StatelessWidget {
       },
     );
   }
+
+  Widget _googleSignInButton() {
+    return MyElevatedButton(
+      buttonText: 'Google Sign In',
+      backgroundColor: Colors.white,
+      buttonTextColor: Colors.black,
+      // Set your desired background color
+      onPressed: () {
+        loginViewmodel.onLoginButtonClicked();
+        print('Button clicked!');
+      },
+    );
+  }
+
 }

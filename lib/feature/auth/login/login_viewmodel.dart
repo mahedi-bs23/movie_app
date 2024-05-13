@@ -24,13 +24,13 @@ class LoginViewmodel{
     return PasswordValidator.getError(passwordController.text);
   }
 
-  void onEmailChanged(String value) {
+  /*void onEmailChanged(String value) {
     emailController.text = value;
   }
 
   void onPasswordChanged(String value) {
     passwordController.text = value;
-  }
+  }*/
 
   void onPasswordShowChanged(){
     print("On password show method clicked!");

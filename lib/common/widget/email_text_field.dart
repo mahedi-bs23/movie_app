@@ -25,48 +25,35 @@ class EmailTexTField extends StatelessWidget {
         filled: true,
         fillColor: Colors.white24,
         hintText: hintText,
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: Colors.white60,
         ),
         errorText: errorText,
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius
-              .circular(10)
-              .r,
+          borderRadius: BorderRadius.circular(10).r,
           borderSide: BorderSide(
             width: 1.r,
             color: Colors.white60,
           ),
         ),
-
-        /*enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10).r,
-        borderSide: BorderSide(
-          width: 1.r,
-          color: Colors.white60,
-        ),
-      ),*/
-
         border: OutlineInputBorder(
-          borderRadius: BorderRadius
-              .circular(10)
-              .r,
+          borderRadius: BorderRadius.circular(10).r,
           borderSide: BorderSide(
             width: 1.r,
             color: Colors.white60,
           ),
         ),
-        errorBorder: OutlineInputBorder(
+        /*errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
-              width: 1,
-              color: EmailValidator.errorMsg.isEmpty
-                  ? Colors.white60
-                  : EmailValidator.errorMsg == "Invalid Email"
-                  ? Colors.red
-                  : Colors.white60, // Customize error border color here
+            width: 1,
+            color: EmailValidator.errorMsg.isEmpty
+                ? Colors.white60
+                : EmailValidator.errorMsg == "Invalid Email"
+                    ? Colors.red
+                    : Colors.white60, // Customize error border color here
           ),
-        ),
+        ),*/
       ),
     );
   }

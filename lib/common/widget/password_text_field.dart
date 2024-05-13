@@ -10,7 +10,7 @@ class PasswordTexTField extends StatelessWidget {
   final bool shouldShowPassword;
   final VoidCallback onClickedTogglePassWordButton;
 
-  PasswordTexTField(
+  const PasswordTexTField(
       {super.key,
       required this.passwordTextEditingController,
       required this.hintText,
@@ -22,7 +22,7 @@ class PasswordTexTField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: passwordTextEditingController,
-      style: TextStyle(color: Colors.white54),
+      style: const TextStyle(color: Colors.white54),
       cursorColor: Colors.white,
       obscureText: !shouldShowPassword,
       decoration: InputDecoration(

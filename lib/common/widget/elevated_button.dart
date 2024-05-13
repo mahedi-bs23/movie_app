@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class MyElevatedButton extends StatelessWidget {
   final String buttonText;
   final Color backgroundColor;
+  final Color buttonTextColor;
   final VoidCallback onPressed;
 
   MyElevatedButton({
     required this.buttonText,
     required this.backgroundColor,
+    required this.buttonTextColor,
     required this.onPressed,
   });
 
@@ -26,7 +28,7 @@ class MyElevatedButton extends StatelessWidget {
       child: Text(
         buttonText,
         style: TextStyle(
-          color: Colors.white,
+          color: buttonTextColor,
         ),
       ),
     );
