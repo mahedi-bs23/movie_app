@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/elevated_button.dart';
 import 'package:movie_app/common/widget/email_text_field.dart';
 import 'package:movie_app/common/widget/password_text_field.dart';
+import 'package:movie_app/feature/all_screen_bottom_navigation.dart/all_screen_bottom_navigration.dart';
 import 'package:movie_app/feature/auth/login/login_viewmodel.dart';
 import 'package:movie_app/feature/home/home_screen.dart';
 
@@ -21,7 +22,7 @@ class LoginScreen extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => AllScreenBottomNavigation(),
           ),
         );
       } else {
