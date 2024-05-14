@@ -1,15 +1,22 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/feature/home/home_viewmodel.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
 
 class TopMovies extends StatelessWidget {
   final int selectedIndex;
 
-  const TopMovies({super.key, required this.selectedIndex});
+  const TopMovies({Key? key, required this.selectedIndex});
 
   @override
   Widget build(BuildContext context) {
+    final List<Movie> topMovies = HomeViewmodel().topMovies; // Access the topMovies list
+
+    final Movie selectedMovie = topMovies[selectedIndex]; // Retrieve the selected movie
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -19,27 +26,23 @@ class TopMovies extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.red,
             image: DecorationImage(
-              image: AssetImage(
-                topMovies[selectedIndex].image,
-              ),
+              image: AssetImage(selectedMovie.image),
               fit: BoxFit.cover,
             ),
             borderRadius: BorderRadius.circular(15).r,
           ),
         ),
-        SizedBox(
-          height: 8.sp,
-        ),
+        SizedBox(height: 8.sp),
         SizedBox(
           width: 100.sp,
           child: Text(
-            overflow: TextOverflow.ellipsis,
-            topMovies[selectedIndex].name,
+            selectedMovie.name,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.white,
               fontSize: 16.sp,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         Text(

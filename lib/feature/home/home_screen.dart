@@ -4,21 +4,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/feature/home/home_viewmodel.dart';
+import 'package:movie_app/feature/home/model/movie_list_category.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
+import 'package:movie_app/feature/home/see_all_movies.dart';
 import 'package:movie_app/feature/home/widget/special_movies.dart';
 import 'package:movie_app/feature/home/widget/top_movies.dart';
 import 'package:movie_app/feature/home/widget/upcoming_movies.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+  HomeScreen({super.key});
+  HomeViewmodel homeViewmodele = HomeViewmodel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20).r,
+          padding: const EdgeInsets.only(top: 20, right: 20, bottom: 0, left: 20).r,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -58,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   height: 220.sp,
-                  child: const SpecialMovies(),
+                  child:  SpecialMovies(),
                 ),
                 SizedBox(
                   height: 24.sp,
@@ -75,7 +78,16 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SeeAllMovies(
+                              movieListCategory: MovieListCategory.topMovies,
+                            ),
+                          ),
+                        );
+                      },
                       child: Text(
                         'See All',
                         style: TextStyle(
@@ -95,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
-                    itemCount: topMovies.length,
+                    itemCount: homeViewmodele.topMovies.length,
                     itemBuilder: (context, index) {
                       return TopMovies(
                         selectedIndex: index,
@@ -123,7 +135,16 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SeeAllMovies(
+                              movieListCategory: MovieListCategory.topMovies,
+                            ),
+                          ),
+                        );
+                      },
                       child: Text(
                         'See All',
                         style: TextStyle(
@@ -143,7 +164,7 @@ class HomeScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
-                    itemCount: topMovies.length,
+                    itemCount: homeViewmodele.topMovies.length,
                     itemBuilder: (context, index) {
                       return UpcomingMovies(
                         selectedIndex: index,

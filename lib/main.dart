@@ -6,13 +6,11 @@ import 'package:movie_app/feature/auth/login/login_screen.dart';
 import 'feature/all_screen_bottom_navigation.dart/all_screen_bottom_navigration.dart';
 
 void main() {
-  ///WidgetsFlutterBinding.ensureInitialized();
 
-  /*SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays:
-  [SystemUiOverlay.top]);*/
+  WidgetsFlutterBinding.ensureInitialized();
 
-  ///SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top]);
 
   runApp(const MyApp());
 }
@@ -23,19 +21,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      builder: (context, child){
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          home: AllScreenBottomNavigation(),
-
-        );
-      }
-    );
+    return ScreenUtilInit(builder: (context, child) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: AllScreenBottomNavigation(),
+      );
+    });
   }
 }
