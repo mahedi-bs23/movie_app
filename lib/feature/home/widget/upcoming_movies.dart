@@ -14,7 +14,7 @@ class UpcomingMovies extends StatelessWidget {
 
     final List<Movie> upcomingMovies = HomeViewmodel().upcomingMovies; // Access the topMovies list
 
-    final Movie selectedMovie = upcomingMovies[selectedIndex];
+    //final Movie selectedMovie = upcomingMovies[selectedIndex];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

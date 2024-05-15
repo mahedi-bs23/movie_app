@@ -8,7 +8,7 @@ import 'package:movie_app/feature/home/home_viewmodel.dart';
 import 'package:movie_app/feature/home/model/movie_list_category.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
 import 'package:movie_app/feature/home/see_all_movies.dart';
-import 'package:movie_app/feature/home/widget/home_viewmodel_two.dart';
+import 'package:movie_app/feature/home/home_viewmodel_two.dart';
 import 'package:movie_app/feature/home/widget/special_movies.dart';
 import 'package:movie_app/feature/home/widget/top_movies.dart';
 import 'package:movie_app/feature/home/widget/upcoming_movies.dart';
@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Welcome Back',
+                                    "Welcome Back",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14.sp,
@@ -72,10 +72,19 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             height: 16.sp,
                           ),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 220.sp,
-                            child: SpecialMovies(),
+                          ValueListenableBuilder(
+                            valueListenable: homeViewmodelTwo.allMovieData,
+                            builder: (context, allMovieData, _) {
+                              return SizedBox(
+                                width: double.infinity,
+                                height: 220.sp,
+                                child: SpecialMovies(
+                                  viewModelTow: homeViewmodelTwo,
+                                  backgroundImage:
+                                      homeViewmodelTwo.imageUrl.value,
+                                ),
+                              );
+                            },
                           ),
                           SizedBox(
                             height: 24.sp,
