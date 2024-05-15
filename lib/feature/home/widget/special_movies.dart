@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/add_watchlist_button.dart';
 import 'package:movie_app/feature/home/home_viewmodel.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
+import 'package:movie_app/feature/home/widget/home_viewmodel_two.dart';
+import 'package:movie_app/model/get_all_movie_model.dart';
 
 class SpecialMovies extends StatelessWidget {
   SpecialMovies({super.key});
@@ -19,7 +21,8 @@ class SpecialMovies extends StatelessWidget {
     _timer = Timer.periodic(
       const Duration(seconds: 2),
       (timer) {
-        final nextPage = (currentPageNotifier.value + 1) % HomeViewmodel().specialMovies.length;
+        final nextPage = (currentPageNotifier.value + 1) %
+            HomeViewmodel().specialMovies.length;
         _pageController.animateToPage(nextPage,
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut);
@@ -29,23 +32,29 @@ class SpecialMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _pageController = PageController(initialPage: currentPageNotifier.value);
-    _startAutoPageChange();
+    /* _pageController = PageController(initialPage: currentPageNotifier.value);
+    _startAutoPageChange();*/
 
-    final List<Movie> specialMovies =
-        HomeViewmodel().specialMovies; // Access the topMovies list
+    /* */ /*final List<Movie> specialMovies =
+        HomeViewmodel().specialMovies; */ /*// Access the topMovies list
+*/
+    HomeViewmodelTwo homeViewmodelTwo = HomeViewmodelTwo();
 
     return ValueListenableBuilder(
       valueListenable: currentPageNotifier,
       builder: (context, currentPage, _) {
         return PageView.builder(
           pageSnapping: true,
-          itemCount: specialMovies.length,
-          controller: _pageController,
+          itemCount: homeViewmodelTwo.allMovieData.value?.length.toInt() ?? 5,
+
+          ///controller: _pageController,
           onPageChanged: (index) {
             currentPageNotifier.value = index; // Update the current page index
           },
           itemBuilder: (context, pagePosition) {
+            String? backgroundImageUrl = homeViewmodelTwo.allMovieData.value?[0]
+                    .toString() ??
+                'fallback_image_url';
             return Stack(
               children: [
                 Container(
@@ -53,9 +62,7 @@ class SpecialMovies extends StatelessWidget {
                   height: 220.sp,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(
-                        specialMovies[pagePosition].image,
-                      ),
+                      image: NetworkImage(backgroundImageUrl),
                       fit: BoxFit.fill,
                     ),
                     borderRadius: BorderRadius.circular(15).r,
@@ -119,7 +126,7 @@ class SpecialMovies extends StatelessWidget {
                               width: 2.sp,
                             ),
                             Text(
-                              specialMovies[pagePosition].rating,
+                              "specialMovies[pagePosition].rating",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
@@ -140,7 +147,7 @@ class SpecialMovies extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        specialMovies[pagePosition].name,
+                        "specialMovies[pagePosition].name",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
@@ -191,7 +198,7 @@ class SpecialMovies extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 5.sp, vertical: 1.sp),
                             child: Text(
-                              specialMovies[pagePosition].releaseYear,
+                              "specialMovies[pagePosition].releaseYear",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
@@ -212,7 +219,7 @@ class SpecialMovies extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 5.sp, vertical: 1.sp),
                             child: Text(
-                              specialMovies[pagePosition].time,
+                              "specialMovies[pagePosition].time,",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
@@ -249,7 +256,8 @@ class SpecialMovies extends StatelessWidget {
                     width: 50.sp,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemCount: specialMovies.length,
+                      itemCount: homeViewmodelTwo
+                          .allMovieData.value?.length.toInt() ?? 20,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           width: index == pagePosition ? 20.sp : 4.sp,

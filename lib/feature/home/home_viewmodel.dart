@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movie_app/feature/home/model/movie_list_category.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
+import 'package:movie_app/repository/get_all_movie_repository.dart';
 
 
 class HomeViewmodel {
@@ -161,11 +162,18 @@ class HomeViewmodel {
     ),
   ];
 
+
   final ValueNotifier<List<Movie>> _movieList = ValueNotifier(List.empty());
 
   ValueNotifier<List<Movie>> get movieList => _movieList;
 
+
+
+
+
+
   void onInit(MovieListCategory movieListCategory) {
+
     switch (movieListCategory) {
       case MovieListCategory.topMovies:
         movieList.value = topMovies;
@@ -175,4 +183,5 @@ class HomeViewmodel {
         movieList.value = specialMovies;
     }
   }
+
 }
