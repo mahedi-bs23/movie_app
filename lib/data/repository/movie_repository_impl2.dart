@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:movie_app/data/model/movie_list_response.dart';
+import 'package:movie_app/data/model/movie_list_response_model.dart';
 
 import 'movie_repository.dart';
 
@@ -8,7 +8,7 @@ const String movieUrl =
 
 class MovieRepositoryImpl2 extends MovieRepository {
   @override
-  Future<MovieListResponse> getMovieList() async {
+  Future<MovieListResponseModel> getMovieList() async {
     print("############## Before api call ##############");
 
     final url = Uri.parse(movieUrl);

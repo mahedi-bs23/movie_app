@@ -4,26 +4,26 @@
 
 import 'dart:convert';
 
-MovieListResponse movieModelFromJson(String str) =>
-    MovieListResponse.fromJson(json.decode(str));
+MovieListResponseModel movieModelFromJson(String str) =>
+    MovieListResponseModel.fromJson(json.decode(str));
 
-String movieModelToJson(MovieListResponse data) => json.encode(data.toJson());
+String movieModelToJson(MovieListResponseModel data) => json.encode(data.toJson());
 
-class MovieListResponse {
+class MovieListResponseModel {
   Stat status;
   String statusMessage;
   Data? data;
   Meta meta;
 
-  MovieListResponse({
+  MovieListResponseModel({
     required this.status,
     required this.statusMessage,
     this.data,
     required this.meta,
   });
 
-  factory MovieListResponse.fromJson(Map<String, dynamic> json) =>
-      MovieListResponse(
+  factory MovieListResponseModel.fromJson(Map<String, dynamic> json) =>
+      MovieListResponseModel(
         status: statValues.map[json["status"]]!,
         statusMessage: json["status_message"],
         data: Data.fromJson(json["data"]),

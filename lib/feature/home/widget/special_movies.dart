@@ -7,16 +7,13 @@ import 'package:movie_app/common/widget/add_watchlist_button.dart';
 import 'package:movie_app/feature/home/home_viewmodel.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
-import 'package:movie_app/data/model/movie_list_response.dart';
+import 'package:movie_app/data/model/movie_list_response_model.dart';
 
 class SpecialMovies extends StatelessWidget {
-  final String backgroundImage;
-
   final HomeViewmodelTwo viewModelTow;
 
   SpecialMovies({
     super.key,
-    required this.backgroundImage,
     required this.viewModelTow,
   });
 
@@ -29,8 +26,7 @@ class SpecialMovies extends StatelessWidget {
     _timer = Timer.periodic(
       const Duration(seconds: 2),
       (timer) {
-        final nextPage = (currentPageNotifier.value + 1) %
-            10;
+        final nextPage = (currentPageNotifier.value + 1) % 10;
         _pageController.animateToPage(nextPage,
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut);
@@ -43,65 +39,51 @@ class SpecialMovies extends StatelessWidget {
     _pageController = PageController(initialPage: currentPageNotifier.value);
     _startAutoPageChange();
 
-        /*final List<Movie> specialMovies =
+    /*final List<Movie> specialMovies =
         HomeViewmodel().specialMovies;*/
-    //HomeViewmodelTwo homeViewmodelTwo = HomeViewmodelTwo();
-    print("Image URL in Widget: ${viewModelTow.imageUrl.value}");
 
     return ValueListenableBuilder(
       valueListenable: currentPageNotifier,
       builder: (context, currentPage, _) {
         return ValueListenableBuilder(
-            valueListenable: viewModelTow.allMovieData,
-            builder: (context, allMovieData, _) {
-              return PageView.builder(
-                controller: _pageController,
-                pageSnapping: true,
-                itemCount:
-                    viewModelTow.allMovieData.value!.length.toInt(),
+          valueListenable: viewModelTow.allMovieData,
+          builder: (context, allMovieData, _) {
+            return PageView.builder(
+              //controller: _pageController,
+              pageSnapping: true,
+              itemCount: viewModelTow.allMovieData.value!.length.toInt(),
 
-                ///controller: _pageController,
-                onPageChanged: (index) {
-                  currentPageNotifier.value =
-                      index; // Update the current page index
-                },
-                itemBuilder: (context, pagePosition) {
-                  return Stack(
-                    children: [
-                      ValueListenableBuilder(
-                        valueListenable: viewModelTow.allMovieData,
-                        builder: (context, allMovieDataList, _) {
-                          ///debugPrint("============================== $url =============");
-                          if (allMovieData?[pagePosition].largeCoverImage=="") return const SizedBox.shrink();
-                          return Container(
-                            width: double.infinity,
-                            height: 220.sp,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  allMovieData?[pagePosition].largeCoverImage,
-                                ),
-                                fit: BoxFit.fill,
+              ///controller: _pageController,
+              onPageChanged: (index) {
+                currentPageNotifier.value =
+                    index; // Update the current page index
+              },
+              itemBuilder: (context, pagePosition) {
+                return Stack(
+                  children: [
+                    ValueListenableBuilder(
+                      valueListenable: viewModelTow.allMovieData,
+                      builder: (context, allMovieDataList, _) {
+                        ///debugPrint("============================== $url =============");
+                        if (allMovieData?[pagePosition].largeCoverImage == "") {
+                          return const SizedBox.shrink();
+                        }
+                        return Container(
+                          width: double.infinity,
+                          height: 220.sp,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                allMovieData?[pagePosition].largeCoverImage,
                               ),
-                              borderRadius: BorderRadius.circular(15).r,
+                              fit: BoxFit.fill,
                             ),
-                            /*child: Center(
-                              child: ValueListenableBuilder(
-                                valueListenable: homeViewmodelTwo.imageUrl,
-                                builder: (context, url, _) {
-                                  return Text(
-                                    homeViewmodelTwo.imageUrl.value,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),*/
-                          );
-                        },
-                      )
-                      /*  Positioned(
+                            borderRadius: BorderRadius.circular(15).r,
+                          ),
+                        );
+                      },
+                    ),
+                    Positioned(
                       left: 0,
                       bottom: 0,
                       right: 0,
@@ -159,7 +141,7 @@ class SpecialMovies extends StatelessWidget {
                                   width: 2.sp,
                                 ),
                                 Text(
-                                  "specialMovies[pagePosition].rating",
+                                  "${viewModelTow.allMovieData.value?[pagePosition].rating}",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white,
@@ -179,12 +161,16 @@ class SpecialMovies extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "specialMovies[pagePosition].name",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
-                              fontSize: 16.sp,
+                          SizedBox(
+                            width: 200.sp,
+                            child: Text(
+                              "${viewModelTow.allMovieData.value?[pagePosition].title}",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                              ),
                             ),
                           ),
                           Text(
@@ -231,7 +217,8 @@ class SpecialMovies extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 5.sp, vertical: 1.sp),
                                 child: Text(
-                                  "specialMovies[pagePosition].releaseYear",
+                                  "${viewModelTow.allMovieData.value?[pagePosition].year}",
+                                  //"specialMovies[pagePosition].releaseYear ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white,
@@ -252,7 +239,7 @@ class SpecialMovies extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 5.sp, vertical: 1.sp),
                                 child: Text(
-                                  "specialMovies[pagePosition].time,",
+                                  "${viewModelTow.allMovieData.value?[pagePosition].runtime} min",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white,
@@ -290,7 +277,7 @@ class SpecialMovies extends StatelessWidget {
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemCount:
-                              homeViewmodelTwo.allMovieData.value?.length.toInt() ??
+                              viewModelTow.allMovieData.value?.length.toInt() ??
                                   20,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
@@ -308,12 +295,13 @@ class SpecialMovies extends StatelessWidget {
                           },
                         ),
                       ),
-                    ),*/
-                    ],
-                  );
-                },
-              );
-            });
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        );
       },
     );
   }

@@ -6,7 +6,6 @@ import 'package:movie_app/common/widget/add_watchlist_button.dart';
 import 'package:movie_app/feature/home/home_viewmodel.dart';
 import 'package:movie_app/feature/home/model/movie_list_category.dart';
 
-
 class SeeAllMovies extends StatelessWidget {
   final MovieListCategory movieListCategory;
 
@@ -155,7 +154,8 @@ class SeeAllMovies extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 5.sp, vertical: 1.sp),
                                           child: Text(
-                                            viewmodel.movieList.value[index].releaseYear,
+                                            viewmodel.movieList.value[index]
+                                                .releaseYear,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.white,
@@ -177,7 +177,8 @@ class SeeAllMovies extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 5.sp, vertical: 1.sp),
                                           child: Text(
-                                            viewmodel.movieList.value[index].time,
+                                            viewmodel
+                                                .movieList.value[index].time,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.white,
@@ -199,7 +200,8 @@ class SeeAllMovies extends StatelessWidget {
                                           width: 2.sp,
                                         ),
                                         Text(
-                                          viewmodel.movieList.value[index].rating,
+                                          viewmodel
+                                              .movieList.value[index].rating,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             color: Colors.white,

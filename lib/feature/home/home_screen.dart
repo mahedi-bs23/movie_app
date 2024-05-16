@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.black,
           body: homeViewmodelTwo.isLoading.value
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : SafeArea(
@@ -80,8 +80,6 @@ class HomeScreen extends StatelessWidget {
                                 height: 220.sp,
                                 child: SpecialMovies(
                                   viewModelTow: homeViewmodelTwo,
-                                  backgroundImage:
-                                      homeViewmodelTwo.imageUrl.value,
                                 ),
                               );
                             },

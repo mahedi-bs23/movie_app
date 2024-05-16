@@ -27,7 +27,7 @@ class AllScreenViewModel {
     ),
     NavigationItemModel(
       icon: Icons.settings,
-      selectedIcon: Icons.home,
+      selectedIcon: Icons.settings,
       label: "",
       navigationItemType: NavigationItemType.settings,
     ),

@@ -1,12 +1,13 @@
+/*
 import 'package:http/http.dart' as http;
 
-import 'package:movie_app/data/model/movie_list_response.dart';
+import 'package:movie_app/data/model/movie_list_response_model.dart';
 
 const String movieUrl =
     "https://yts.mx/api/v2/list_movies.json?sort_by=popular&order_by=desc";
 
 class GetAllMovie {
-  Future<MovieListResponse> getAllMovie() async {
+  Future<MovieListResponseModel> getAllMovie() async {
     print("############## Before api call ##############");
 
     final url = Uri.parse(movieUrl);
@@ -20,3 +21,4 @@ class GetAllMovie {
 
   }
 }
+*/
