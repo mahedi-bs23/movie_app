@@ -7,7 +7,6 @@ import 'package:movie_app/feature/setting/setting_screen.dart';
 import 'feature/all_screen_bottom_navigation.dart/all_screen_bottom_navigration.dart';
 
 void main() {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,

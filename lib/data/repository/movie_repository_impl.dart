@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:movie_app/data/model/movie_list_response_model.dart';
 
@@ -15,12 +17,9 @@ class MovieRepositoryImpl extends MovieRepository {
     final response = await http.get(url);
 
     print("############## after api call ################");
-    print(response.statusCode);
+    print("Status code repo class : ${response.statusCode}");
 
 
-
-
-
-    return movieModelFromJson(response.body);
+    return MovieListResponseModel.fromJson(jsonDecode(response.body));
   }
 }

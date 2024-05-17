@@ -19,7 +19,7 @@ enum NavigationItemType {
       case NavigationItemType.favourite:
         return const FavouriteScreen();
       case NavigationItemType.settings:
-        return SettingScreen();
+       return HomeScreen();
     }
   }
 }

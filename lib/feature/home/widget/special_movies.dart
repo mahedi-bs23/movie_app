@@ -4,10 +4,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/add_watchlist_button.dart';
-import 'package:movie_app/feature/home/home_viewmodel.dart';
-import 'package:movie_app/feature/home/model/movie_model.dart';
+import 'package:movie_app/feature/common/app_module.dart';
+import 'package:movie_app/feature/favourite/favourite_viewmodel.dart';
+import 'package:movie_app/feature/favourite/model/watchlist_model.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
-import 'package:movie_app/data/model/movie_list_response_model.dart';
+import 'package:movie_app/feature/home/model/movie_list_item_ui_model.dart';
+import 'package:movie_app/feature/home/model/movie_model.dart';
+import 'package:movie_app/feature/home/movie_details.dart';
 
 class SpecialMovies extends StatelessWidget {
   final HomeViewmodelTwo viewModelTow;
@@ -34,6 +37,9 @@ class SpecialMovies extends StatelessWidget {
     );
   }
 
+  FavouriteViewmodel favouriteViewmodel =
+      FavouriteViewModelSingleton.getInstance();
+
   @override
   Widget build(BuildContext context) {
     _pageController = PageController(initialPage: currentPageNotifier.value);
@@ -49,7 +55,7 @@ class SpecialMovies extends StatelessWidget {
           valueListenable: viewModelTow.allMovieData,
           builder: (context, allMovieData, _) {
             return PageView.builder(
-              //controller: _pageController,
+              // controller: _pageController,
               pageSnapping: true,
               itemCount: viewModelTow.allMovieData.value!.length.toInt(),
 
@@ -59,244 +65,273 @@ class SpecialMovies extends StatelessWidget {
                     index; // Update the current page index
               },
               itemBuilder: (context, pagePosition) {
-                return Stack(
-                  children: [
-                    ValueListenableBuilder(
-                      valueListenable: viewModelTow.allMovieData,
-                      builder: (context, allMovieDataList, _) {
-                        ///debugPrint("============================== $url =============");
-                        if (allMovieData?[pagePosition].largeCoverImage == "") {
-                          return const SizedBox.shrink();
-                        }
-                        return Container(
-                          width: double.infinity,
-                          height: 220.sp,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                allMovieData?[pagePosition].largeCoverImage,
-                              ),
-                              fit: BoxFit.fill,
-                            ),
-                            borderRadius: BorderRadius.circular(15).r,
-                          ),
-                        );
-                      },
-                    ),
-                    Positioned(
-                      left: 0,
-                      bottom: 0,
-                      right: 0,
-                      child: ClipRect(
-                        // Clip the filter to half
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                          // Adjust blur intensity as needed
-                          child: Container(
-                            height: 70.sp,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MovieDetails(
+                          viewmodel: viewModelTow,
+                          selectedIndex: pagePosition,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Stack(
+                    children: [
+                      ValueListenableBuilder(
+                        valueListenable: viewModelTow.allMovieData,
+                        builder: (context, allMovieDataList, _) {
+                          ///debugPrint("============================== $url =============");
+                          if (allMovieData?[pagePosition].largeCoverImage ==
+                              "") {
+                            return const SizedBox.shrink();
+                          }
+                          return Container(
+                            width: double.infinity,
+                            height: 220.sp,
                             decoration: BoxDecoration(
-                              color: Colors.white12,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(15.r),
-                                bottomRight: Radius.circular(15.r),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  allMovieData?[pagePosition].largeCoverImage,
+                                ),
+                                fit: BoxFit.fill,
                               ),
-                              border: Border(
-                                top: BorderSide(
-                                  color: Colors.white38,
-                                  width: .5.sp,
+                              borderRadius: BorderRadius.circular(15).r,
+                            ),
+                          );
+                        },
+                      ),
+                      Positioned(
+                        left: 0,
+                        bottom: 0,
+                        right: 0,
+                        child: ClipRect(
+                          // Clip the filter to half
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                            // Adjust blur intensity as needed
+                            child: Container(
+                              height: 70.sp,
+                              decoration: BoxDecoration(
+                                color: Colors.white12,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(15.r),
+                                  bottomRight: Radius.circular(15.r),
+                                ),
+                                border: Border(
+                                  top: BorderSide(
+                                    color: Colors.white38,
+                                    width: .5.sp,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
 
-                    Positioned(
-                      left: 20.sp,
-                      top: 20.sp,
-                      child: ClipRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 6.sp,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white12,
-                              borderRadius: BorderRadius.circular(4).r,
-                              border: Border.all(
-                                color: Colors.white,
-                                width: .5.sp,
+                      Positioned(
+                        left: 20.sp,
+                        top: 20.sp,
+                        child: ClipRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.sp,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white12,
+                                borderRadius: BorderRadius.circular(4).r,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: .5.sp,
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.star_rate_rounded,
+                                    color: Colors.white,
+                                    size: 16.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 2.sp,
+                                  ),
+                                  Text(
+                                    "${viewModelTow.allMovieData.value?[pagePosition].rating}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 8.sp,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.star_rate_rounded,
+                          ),
+                        ),
+                      ),
+
+                      Positioned(
+                        left: 20.sp,
+                        top: 155.sp,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 200.sp,
+                              child: Text(
+                                "${viewModelTow.allMovieData.value?[pagePosition].title}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
                                   color: Colors.white,
-                                  size: 16.sp,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "History Thriller Drama Mystery",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                                fontSize: 8.sp,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 6.sp,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: .5.sp,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(10).r),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5.sp, vertical: 1.sp),
+                                  child: Text(
+                                    "17+",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 6.sp,
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
-                                  width: 2.sp,
+                                  width: 8.sp,
                                 ),
-                                Text(
-                                  "${viewModelTow.allMovieData.value?[pagePosition].rating}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                    fontSize: 8.sp,
+                                Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: .5.sp,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(10).r),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5.sp, vertical: 1.sp),
+                                  child: Text(
+                                    "${viewModelTow.allMovieData.value?[pagePosition].year}",
+                                    //"specialMovies[pagePosition].releaseYear ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 6.sp,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8.sp,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: .5.sp,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(10).r),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5.sp, vertical: 1.sp),
+                                  child: Text(
+                                    "${viewModelTow.allMovieData.value?[pagePosition].runtime} min",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 6.sp,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        top: 170.sp,
+                        left: 220.sp,
+                        right: 20.sp,
+                        child: SizedBox(
+                          height: 20.h,
+                          width: 80.w,
+                          child: AddWatchlistButton(
+                            onPressed: () {
+                              favouriteViewmodel.onClickAddToFavourite(
+                                Movie(
+                                    image: 'asdfsdf',
+                                    name: "asdfasdf",
+                                    rating: "334",
+                                    releaseYear: "2323",
+                                    time: "w3erwer"),
+                              );
+                              print(
+                                  "WatchList Length In Special Movie Class: ${favouriteViewmodel.watchList.value.length}");
+                            },
                           ),
                         ),
                       ),
-                    ),
 
-                    Positioned(
-                      left: 20.sp,
-                      top: 155.sp,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 200.sp,
-                            child: Text(
-                              "${viewModelTow.allMovieData.value?[pagePosition].title}",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "History Thriller Drama Mystery",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                              fontSize: 8.sp,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 6.sp,
-                          ),
-                          Row(
-                            children: [
-                              Container(
+                      ///  Sliding Pointer List ///
+
+                      Positioned(
+                        left: 220.sp,
+                        //right: 20.sp,
+                        bottom: 10.sp,
+                        child: SizedBox(
+                          height: 4.sp,
+                          width: 50.sp,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: viewModelTow.allMovieData.value?.length
+                                    .toInt() ??
+                                20,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                width: index == pagePosition ? 20.sp : 4.sp,
                                 decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: .5.sp,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10).r),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5.sp, vertical: 1.sp),
-                                child: Text(
-                                  "17+",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                    fontSize: 6.sp,
-                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(2.r),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 8.sp,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: .5.sp,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10).r),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5.sp, vertical: 1.sp),
-                                child: Text(
-                                  "${viewModelTow.allMovieData.value?[pagePosition].year}",
-                                  //"specialMovies[pagePosition].releaseYear ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                    fontSize: 6.sp,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 8.sp,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: .5.sp,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10).r),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5.sp, vertical: 1.sp),
-                                child: Text(
-                                  "${viewModelTow.allMovieData.value?[pagePosition].runtime} min",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                    fontSize: 6.sp,
-                                  ),
-                                ),
-                              ),
-                            ],
+                              );
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(
+                                width: 3.sp,
+                              );
+                            },
                           ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      top: 170.sp,
-                      left: 220.sp,
-                      right: 20.sp,
-                      child: SizedBox(
-                        height: 20.h,
-                        width: 80.w,
-                        child: AddWatchlistButton(
-                          onPressed: () {},
                         ),
                       ),
-                    ),
-
-                    ///  Sliding Pointer List ///
-
-                    Positioned(
-                      left: 220.sp,
-                      //right: 20.sp,
-                      bottom: 10.sp,
-                      child: SizedBox(
-                        height: 4.sp,
-                        width: 50.sp,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount:
-                              viewModelTow.allMovieData.value?.length.toInt() ??
-                                  20,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              width: index == pagePosition ? 20.sp : 4.sp,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(2.r),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(
-                              width: 3.sp,
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
             );

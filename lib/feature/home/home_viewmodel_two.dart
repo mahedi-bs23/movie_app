@@ -23,9 +23,14 @@ class HomeViewmodelTwo {
   Future getAllMovie() async {
     MovieListResponseModel movieListResponse = await movieRepository.getMovieList();
     _allMovieData.value = movieListResponse.data?.movies;
-    print(movieListResponse.status);
 
-    if (movieListResponse.status == Stat.OK) {
+    print("Status code1 view model : ${allMovieData.value!.length}");
+
+
+    print("Status code1 view model : ${movieListResponse.status}");
+
+    if (movieListResponse.status == "ok") {
+      print("Status code2 view model: ${movieListResponse.status}");
       _isLoading.value = false;
 
       ///print("Movie Data List Length: ${allMovieData.value?[6].backgroundImage}");
