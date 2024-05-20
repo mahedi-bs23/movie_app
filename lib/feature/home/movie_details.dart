@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/elevated_button.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
@@ -183,13 +184,107 @@ class MovieDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 8.sp,),
+                    SizedBox(
+                      height: 8.sp,
+                    ),
                     MyElevatedButton(
                       buttonText: "Add To Watchlist",
                       backgroundColor: Colors.indigoAccent.shade400,
                       buttonTextColor: Colors.white,
-                      onPressed: () {},
-                    )
+                      onPressed: () {
+
+                      },
+                    ),
+                    SizedBox(
+                      height: 12.sp,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              "Overall Rating",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "${viewmodel.allMovieData.value?[selectedIndex].rating.toDouble()}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            RatingBar.builder(
+                              initialRating: viewmodel
+                                      .allMovieData.value?[selectedIndex].rating
+                                      .toDouble() /
+                                  2.0,
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 16.sp,
+                              unratedColor: Colors.white,
+                              itemPadding:
+                                  EdgeInsets.symmetric(horizontal: 0.0),
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star_rounded,
+                                color: Colors.amber,
+                                size: 10.sp,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: 80.sp,
+                          width: 2.sp,
+                          color: Colors.white,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              "Your Rating",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "0.0",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            RatingBar.builder(
+                              initialRating: 0.0,
+                              minRating: 0,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 16.sp,
+                              unratedColor: Colors.white,
+                              itemPadding:
+                                  EdgeInsets.symmetric(horizontal: 0.0),
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star_rounded,
+                                color: Colors.amber,
+                                size: 10.sp,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

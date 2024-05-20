@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movie_app/feature/home/model/movie_list_category.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
-import 'package:movie_app/repository/get_all_movie_repository.dart';
 
 
 class HomeViewmodel {

@@ -1,12 +1,8 @@
-import 'dart:ffi';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movie_app/data/model/movie_list_response_model.dart';
 import 'package:movie_app/data/repository/movie_repository.dart';
 import 'package:movie_app/data/repository/movie_repository_impl.dart';
-import 'package:movie_app/data/repository/movie_repository_impl2.dart';
-import 'package:movie_app/repository/get_all_movie_repository.dart';
 
 class HomeViewmodelTwo {
 
