@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/elevated_button.dart';
+import 'package:movie_app/feature/common/app_module.dart';
+import 'package:movie_app/feature/favourite/favourite_viewmodel.dart';
+import 'package:movie_app/feature/favourite/model/favourite_movie_model.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
 
 class MovieDetails extends StatelessWidget {
@@ -17,6 +20,9 @@ class MovieDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FavouriteViewmodel favouriteViewmodel =
+        FavouriteViewModelSingleton.getInstance();
+
     return ValueListenableBuilder(
         valueListenable: viewmodel.allMovieData,
         builder: (context, movieList, _) {
@@ -192,7 +198,15 @@ class MovieDetails extends StatelessWidget {
                       backgroundColor: Colors.indigoAccent.shade400,
                       buttonTextColor: Colors.white,
                       onPressed: () {
-
+                        favouriteViewmodel.onClickAddToFavourite(
+                          FavouriteMovieModel(
+                            name: movieList?[selectedIndex].title,
+                            image: movieList?[selectedIndex].largeCoverImage,
+                            releaseYear: movieList?[selectedIndex].year.toString() ?? "",
+                            runtime: movieList?[selectedIndex].runtime.toString() ?? "",
+                            rating: movieList?[selectedIndex].rating.toString() ?? " ",
+                          ),
+                        );
                       },
                     ),
                     SizedBox(

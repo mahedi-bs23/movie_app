@@ -213,6 +213,7 @@ class SeeAllMovies extends StatelessWidget {
                                           height: 25.sp,
                                           width: 100,
                                           child: AddWatchlistButton(
+                                            buttonText: "Add To Watchlist",
                                             onPressed: () {},
                                           ),
                                         ),

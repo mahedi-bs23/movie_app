@@ -3,7 +3,7 @@
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:movie_app/common/widget/add_watchlist_button.dart';
 // import 'package:movie_app/feature/favourite/favourite_viewmodel.dart';
-// import 'package:movie_app/feature/favourite/model/watchlist_model.dart';
+// import 'package:movie_app/feature/favourite/model/favourite_movie_model.dart';
 // import 'package:movie_app/feature/home/home_viewmodel.dart';
 // import 'package:movie_app/feature/home/model/movie_model.dart';
 //

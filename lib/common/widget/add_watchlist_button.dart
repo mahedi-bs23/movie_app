@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddWatchlistButton extends StatelessWidget {
   final VoidCallback onPressed;
+  final String buttonText;
 
   const AddWatchlistButton({
     super.key,
+    required this.buttonText,
     required this.onPressed,
   });
 
@@ -26,7 +28,7 @@ class AddWatchlistButton extends StatelessWidget {
         ),
       ),
       child: Text(
-        "Add To Watchlist",
+        buttonText,
         style: TextStyle(
           fontSize: 8.sp,
           color: Colors.white,

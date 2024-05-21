@@ -1,9 +1,9 @@
 
 
-import 'package:movie_app/feature/home/model/movie_model.dart';
+import 'package:movie_app/feature/favourite/model/favourite_movie_model.dart';
 
 abstract class FavouriteRepository {
-  Future<bool> addToFavourite(Movie movie);
-  Future<bool> removeFromFavourite(Movie movie);
-  Future<List<Movie>> getFavouriteMovies();
+  Future<bool> addToFavourite(FavouriteMovieModel movie);
+  Future<bool> removeFromFavourite(int index);
+  Future<List<FavouriteMovieModel>> getFavouriteMovies();
 }

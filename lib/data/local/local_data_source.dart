@@ -1,29 +1,94 @@
+import 'dart:convert';
 
-
-import 'package:movie_app/feature/home/model/movie_model.dart';
+import 'package:movie_app/feature/favourite/model/favourite_movie_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalDataSource {
-  List<Movie> favouriteMovies = [];
 
-  Future<bool> addMovie(Movie movie) async {
+  static const favouriteMovieSharedPrefKey = "favouriteMovies";
+  List<FavouriteMovieModel> _favouriteMovies = [];
+
+  late SharedPreferences prefs;
+
+  LocalDataSource() {
+    init();
+  }
+
+  Future<void> init() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  Future<List<FavouriteMovieModel>> getFavouriteMovies() async {
+    _favouriteMovies = await _getMoviesFromSharedPref() ?? [];
+    return Future.value(_favouriteMovies);
+  }
+
+  Future<bool> addMovie(FavouriteMovieModel movie) async {
     try {
-      favouriteMovies.add(movie);
+      _favouriteMovies = await _getMoviesFromSharedPref() ?? [];
+      _favouriteMovies.add(movie);
+      await _saveMoviesToSharedPref();
+      return Future.value(true);
+    } catch (e) {
+      return Future.value(false);
+    }
+  }
+
+  Future<bool> removeMovie(int index) async {
+    try {
+      print("Remove at Index: $index");
+      _favouriteMovies = await _getMoviesFromSharedPref() ?? [];
+      _favouriteMovies.removeAt(index);
+      await _saveMoviesToSharedPref();
+      return Future.value(true);
+    } catch (e) {
+      return Future.value(false);
+    }
+  }
+
+  Future<List<FavouriteMovieModel>?> _getMoviesFromSharedPref() async {
+    try {
+      final encodedJsonString = prefs.getString(favouriteMovieSharedPrefKey);
+      if(encodedJsonString != null) {
+        _favouriteMovies = (json.decode(encodedJsonString) as List<dynamic>)
+          .map<FavouriteMovieModel>((e) => FavouriteMovieModel.fromJson(e))
+          .toList();
+      }
+      return Future.value(_favouriteMovies);
+    } catch(e) {
+      return Future.value();
+    }
+  }
+
+  Future<bool> _saveMoviesToSharedPref() async {
+    final encodedJson = json.encode(
+      _favouriteMovies
+          .map<Map<String, dynamic>>((e) => e.toJson())
+          .toList(),
+    );
+    try {
+      await prefs.setString(favouriteMovieSharedPrefKey, encodedJson);
       return Future.value(true);
     } catch(e) {
       return Future.value(false);
     }
   }
 
-  Future<bool> removeMovie(Movie movie) async {
-    try {
-      favouriteMovies.remove(movie);
-      return Future.value(true);
-    } catch(e) {
-      return Future.value(false);
+/*Future<List<FavouriteMovieModel>> getMovies() async {
+    final prefs = await SharedPreferences.getInstance();
+    final moviesJson = prefs.getString('_favouriteMovies');
+    if (moviesJson != null) {
+      final moviesList = jsonDecode(moviesJson) as List<dynamic>;
+      return moviesList.map((movieMap) {
+        return FavouriteMovieModel(
+          name: movieMap['name'],
+          image: movieMap['image'],
+          releaseYear: movieMap['releaseYear'],
+          runtime: movieMap['runtime'],
+          rating: movieMap['rating'],
+        );
+      }).toList();
     }
-  }
-
-  Future<List<Movie>> getMovies() async {
-    return favouriteMovies;
-  }
+    return [];
+  }*/
 }

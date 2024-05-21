@@ -6,9 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/add_watchlist_button.dart';
 import 'package:movie_app/feature/common/app_module.dart';
 import 'package:movie_app/feature/favourite/favourite_viewmodel.dart';
-import 'package:movie_app/feature/favourite/model/watchlist_model.dart';
+import 'package:movie_app/feature/favourite/model/favourite_movie_model.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
-import 'package:movie_app/feature/home/model/movie_list_item_ui_model.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
 import 'package:movie_app/feature/home/movie_details.dart';
 
@@ -53,7 +52,7 @@ class SpecialMovies extends StatelessWidget {
       builder: (context, currentPage, _) {
         return ValueListenableBuilder(
           valueListenable: viewModelTow.allMovieData,
-          builder: (context, allMovieData, _) {
+          builder: (context, movieList, _) {
             return PageView.builder(
               // controller: _pageController,
               pageSnapping: true,
@@ -83,7 +82,7 @@ class SpecialMovies extends StatelessWidget {
                         valueListenable: viewModelTow.allMovieData,
                         builder: (context, allMovieDataList, _) {
                           ///debugPrint("============================== $url =============");
-                          if (allMovieData?[pagePosition].largeCoverImage ==
+                          if (movieList?[pagePosition].largeCoverImage ==
                               "") {
                             return const SizedBox.shrink();
                           }
@@ -93,7 +92,7 @@ class SpecialMovies extends StatelessWidget {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
-                                  allMovieData?[pagePosition].largeCoverImage,
+                                  movieList?[pagePosition].largeCoverImage,
                                 ),
                                 fit: BoxFit.fill,
                               ),
@@ -282,14 +281,16 @@ class SpecialMovies extends StatelessWidget {
                           height: 20.h,
                           width: 80.w,
                           child: AddWatchlistButton(
+                            buttonText: "Add To Watchlist",
                             onPressed: () {
                               favouriteViewmodel.onClickAddToFavourite(
-                                Movie(
-                                    image: 'asdfsdf',
-                                    name: "asdfasdf",
-                                    rating: "334",
-                                    releaseYear: "2323",
-                                    time: "w3erwer"),
+                                FavouriteMovieModel(
+                                  name: movieList?[pagePosition].title,
+                                  image: movieList?[pagePosition].largeCoverImage,
+                                  releaseYear: movieList?[pagePosition].year.toString() ?? "",
+                                  runtime: movieList?[pagePosition].runtime.toString() ?? "",
+                                  rating: movieList?[pagePosition].rating.toString() ?? " ",
+                                ),
                               );
                               print(
                                   "WatchList Length In Special Movie Class: ${favouriteViewmodel.watchList.value.length}");

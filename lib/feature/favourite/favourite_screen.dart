@@ -9,13 +9,24 @@ import 'favourite_viewmodel.dart';
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
-    FavouriteViewmodel favouriteViewmodel = FavouriteViewModelSingleton.getInstance();
+    FavouriteViewmodel favouriteViewmodel =
+        FavouriteViewModelSingleton.getInstance();
 
     favouriteViewmodel.fetchFavouriteMovies();
 
-    print("Watchlist in Favourite class: ${favouriteViewmodel.watchList.value.length}");
+    /*void initState() {
+      super.initState();
+      favouriteViewmodel.fetchFavouriteMovies();
+
+
+    }*/
+
+    print(
+        "Watchlist in Favourite class: ${favouriteViewmodel.watchList.value.length}");
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -27,7 +38,7 @@ class FavouriteScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    GestureDetector(
+                    /*  GestureDetector(
                       onTap: () {
                         Navigator.pop(context);
                       },
@@ -36,7 +47,7 @@ class FavouriteScreen extends StatelessWidget {
                         color: Colors.white,
                         size: 25.sp,
                       ),
-                    ),
+                    ),*/
                     SizedBox(
                       width: 8.sp,
                     ),
@@ -63,11 +74,182 @@ class FavouriteScreen extends StatelessWidget {
                         itemCount: movieList.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            height: 200.sp,
+                            height: 150.sp,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: Colors.white12,
                               borderRadius: BorderRadius.circular(10).r,
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: movieList[index] == ""
+                                      ? SizedBox.shrink()
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                            //olor: Colors.red,
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                movieList[index].image,
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10.r),
+                                              bottomLeft: Radius.circular(10.r),
+                                            ),
+                                          ),
+                                        ),
+                                ),
+                                Expanded(
+                                  flex: 5,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 8.sp, horizontal: 16.sp),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "History \u2022 Thriller \u2022 Drama \u2022 Mystery",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                            fontSize: 8.sp,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 4.sp,
+                                        ),
+                                        Text(
+                                          movieList[index].name,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white,
+                                            fontSize: 16.sp,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 4.sp,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: .5.sp,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10)
+                                                          .r),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5.sp,
+                                                  vertical: 1.sp),
+                                              child: Text(
+                                                "PG 13",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white,
+                                                  fontSize: 6.sp,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 8.sp,
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: .5.sp,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10)
+                                                          .r),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5.sp,
+                                                  vertical: 1.sp),
+                                              child: Text(
+                                                movieList[index].releaseYear,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white,
+                                                  fontSize: 6.sp,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 8.sp,
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: .5.sp,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10)
+                                                          .r),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5.sp,
+                                                  vertical: 1.sp),
+                                              child: Text(
+                                                movieList[index].runtime,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white,
+                                                  fontSize: 6.sp,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacer(),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.star_rate_rounded,
+                                              color: Colors.yellow.shade700,
+                                              size: 20.sp,
+                                            ),
+                                            SizedBox(
+                                              width: 2.sp,
+                                            ),
+                                            Text(
+                                              movieList[index].rating,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                                fontSize: 12.sp,
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            SizedBox(
+                                              height: 25.sp,
+                                              width: 100,
+                                              child: AddWatchlistButton(
+                                                buttonText:
+                                                    "Remove From Watchlist",
+                                                onPressed: () {
+                                                  favouriteViewmodel
+                                                      .onClickRemoveFromFavourite(
+                                                          index);
+                                                  favouriteViewmodel
+                                                      .fetchFavouriteMovies();
+
+                                                  ///favouriteViewmodel.fetchFavouriteMovies();
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           );
                         },
