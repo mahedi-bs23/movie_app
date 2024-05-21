@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class FavouriteMovieModel {
   final String name;
   final String image;
@@ -14,6 +12,26 @@ class FavouriteMovieModel {
     required this.runtime,
     required this.rating,
   });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is FavouriteMovieModel &&
+        other.name == name &&
+        other.image == image &&
+        other.releaseYear == releaseYear &&
+        other.runtime == runtime &&
+        other.rating == rating;
+  }
+
+  @override
+  int get hashCode {
+    return name.hashCode ^
+        image.hashCode ^
+        releaseYear.hashCode ^
+        runtime.hashCode ^
+        rating.hashCode;
+  }
 
   factory FavouriteMovieModel.fromJson(Map<String, dynamic> json) {
     return FavouriteMovieModel(

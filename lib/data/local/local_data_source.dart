@@ -25,7 +25,11 @@ class LocalDataSource {
 
   Future<bool> addMovie(FavouriteMovieModel movie) async {
     try {
+      print("Is Present in local data sourse: ${_favouriteMovies.contains(movie)}");
       _favouriteMovies = await _getMoviesFromSharedPref() ?? [];
+      if(_favouriteMovies.contains(movie)){
+        return Future.value(false);
+      }
       _favouriteMovies.add(movie);
       await _saveMoviesToSharedPref();
       return Future.value(true);
@@ -74,21 +78,4 @@ class LocalDataSource {
     }
   }
 
-/*Future<List<FavouriteMovieModel>> getMovies() async {
-    final prefs = await SharedPreferences.getInstance();
-    final moviesJson = prefs.getString('_favouriteMovies');
-    if (moviesJson != null) {
-      final moviesList = jsonDecode(moviesJson) as List<dynamic>;
-      return moviesList.map((movieMap) {
-        return FavouriteMovieModel(
-          name: movieMap['name'],
-          image: movieMap['image'],
-          releaseYear: movieMap['releaseYear'],
-          runtime: movieMap['runtime'],
-          rating: movieMap['rating'],
-        );
-      }).toList();
-    }
-    return [];
-  }*/
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/add_watchlist_button.dart';
 import 'package:movie_app/feature/common/app_module.dart';
-import 'package:movie_app/feature/home/model/movie_model.dart';
 
 import 'favourite_viewmodel.dart';
 
@@ -67,7 +66,8 @@ class FavouriteScreen extends StatelessWidget {
                   valueListenable: favouriteViewmodel.watchList,
                   builder: (context, movieList, _) {
                     return SizedBox(
-                      height: 700.sp,
+                      ///height: 500.sp,
+                      height: MediaQuery.of(context).size.height-185.sp,
                       width: double.infinity,
                       child: ListView.separated(
                         scrollDirection: Axis.vertical,
@@ -85,10 +85,10 @@ class FavouriteScreen extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: movieList[index] == ""
-                                      ? SizedBox.shrink()
+                                      ? const SizedBox.shrink()
                                       : Container(
                                           decoration: BoxDecoration(
-                                            //olor: Colors.red,
+                                            color: Colors.red,
                                             image: DecorationImage(
                                               image: NetworkImage(
                                                 movieList[index].image,
@@ -206,7 +206,7 @@ class FavouriteScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Row(
                                           children: [
                                             Icon(

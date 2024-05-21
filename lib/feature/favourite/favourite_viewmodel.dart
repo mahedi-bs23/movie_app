@@ -17,8 +17,10 @@ class FavouriteViewmodel {
     _watchList.value = movies;
   }
 
-  void onClickAddToFavourite(FavouriteMovieModel movie) async {
-    await favouriteRepository.addToFavourite(movie);
+  Future<bool> onClickAddToFavourite(FavouriteMovieModel movie) async {
+    bool isPresent = await favouriteRepository.addToFavourite(movie);
+
+    return isPresent;
   }
 
   void onClickRemoveFromFavourite(int index) async{
@@ -27,4 +29,19 @@ class FavouriteViewmodel {
       fetchFavouriteMovies();
     }
   }
+
+  bool checkDuplicateMovie(FavouriteMovieModel movie) {
+
+    print("Movie : $movie");
+
+    if(_watchList.value.contains(movie)){
+      print(_watchList.value.contains(movie));
+      return true;
+    }
+    return false;
+
+  }
+
+
+
 }
