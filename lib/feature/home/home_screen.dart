@@ -6,9 +6,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/feature/home/home_viewmodel.dart';
 import 'package:movie_app/feature/home/model/movie_list_category.dart';
-import 'package:movie_app/feature/home/model/movie_model.dart';
 import 'package:movie_app/feature/home/see_all_movies.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
+import 'package:movie_app/feature/home/widget/home_screen_shimmer.dart';
 import 'package:movie_app/feature/home/widget/special_movies.dart';
 import 'package:movie_app/feature/home/widget/top_movies.dart';
 import 'package:movie_app/feature/home/widget/upcoming_movies.dart';
@@ -28,9 +28,7 @@ class HomeScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.black,
           body: homeViewmodelTwo.isLoading.value
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? buildShimmerEffect()
               : SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.only(

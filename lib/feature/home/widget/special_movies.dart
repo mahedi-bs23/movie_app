@@ -25,7 +25,7 @@ class SpecialMovies extends StatelessWidget {
   late PageController _pageController;
   late Timer _timer;
 
-  void _startAutoPageChange() {
+  /*void _startAutoPageChange() {
     _timer = Timer.periodic(
       const Duration(seconds: 2),
       (timer) {
@@ -35,7 +35,7 @@ class SpecialMovies extends StatelessWidget {
             curve: Curves.easeInOut);
       },
     );
-  }
+  }*/
 
   FavouriteViewmodel favouriteViewmodel =
       FavouriteViewModelSingleton.getInstance();
@@ -43,8 +43,8 @@ class SpecialMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _pageController = PageController(initialPage: currentPageNotifier.value);
-    _startAutoPageChange();
+   /* _pageController = PageController(initialPage: currentPageNotifier.value);
+    _startAutoPageChange();*/
 
     /*final List<Movie> specialMovies =
         HomeViewmodel().specialMovies;*/
