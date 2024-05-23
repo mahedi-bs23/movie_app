@@ -4,7 +4,7 @@ import 'package:movie_app/feature/all_screen_bottom_navigation.dart/model/naviga
 
 class AllScreenViewModel {
   ValueNotifier<NavigationItemType> selectedNavigationMenu =
-      ValueNotifier(NavigationItemType.home);
+      ValueNotifier(NavigationItemType.search);
 
   List<NavigationItemModel> bottomNavigationItems = [
     NavigationItemModel(
@@ -34,6 +34,7 @@ class AllScreenViewModel {
   ];
 
   void onChangedSelectedNavigation(int index) {
+    print(bottomNavigationItems[index].navigationItemType);
     selectedNavigationMenu.value = bottomNavigationItems[index].navigationItemType;
   }
 }

@@ -346,12 +346,12 @@ class SpecialMovies extends StatelessWidget {
                       ///  Sliding Pointer List ///
 
                       Positioned(
-                        left: 220.sp,
+                        left: 150.sp,
                         //right: 20.sp,
                         bottom: 10.sp,
                         child: SizedBox(
                           height: 4.sp,
-                          width: 50.sp,
+                          width: 100.sp,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemCount: viewModelTow.allMovieData.value?.length

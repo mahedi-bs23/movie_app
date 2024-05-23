@@ -6,7 +6,7 @@ import 'package:movie_app/data/model/movie_list_response_model.dart';
 import 'movie_repository.dart';
 
 const String movieUrl =
-    "https://yts.mx/api/v2/list_movies.json?sort_by=popular&order_by=desc";
+    "https://yts.mx/api/v2/list_movies.json?";
 
 class MovieRepositoryImpl extends MovieRepository {
   @override

@@ -15,7 +15,7 @@ enum NavigationItemType {
       case NavigationItemType.home:
         return HomeScreen();
       case NavigationItemType.search:
-        return const SearchScreen();
+        return SearchScreen();
       case NavigationItemType.favourite:
         return const FavouriteScreen();
       case NavigationItemType.settings:

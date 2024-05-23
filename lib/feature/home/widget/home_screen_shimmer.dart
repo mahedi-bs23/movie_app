@@ -4,8 +4,8 @@ import 'package:shimmer/shimmer.dart';
 
 Widget buildShimmerEffect() {
   return Shimmer.fromColors(
-    baseColor: Colors.grey[800]!,
-    highlightColor: Colors.grey[500]!,
+    baseColor: Colors.grey[500]!,
+    highlightColor: Colors.grey[200]!,
     child: Padding(
       padding: const EdgeInsets.only(top: 70, right: 20, bottom: 0, left: 20).r,
       child: SingleChildScrollView(

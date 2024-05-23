@@ -14,9 +14,7 @@ class AllScreenBottomNavigation extends StatelessWidget {
       valueListenable: viewModel.selectedNavigationMenu,
       builder: (context, value, _) {
         return Scaffold(
-          body: Container(
-            child: value.getView(),
-          ),
+          body: value.getView(),
           bottomNavigationBar: Container(
             color: Colors.black,
             padding: EdgeInsets.symmetric(vertical: 8.sp),
