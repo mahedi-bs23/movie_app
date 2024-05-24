@@ -14,18 +14,18 @@ class SearchScreen extends StatelessWidget {
         .addListener(searchViewmodel.onSearchChanged);
     return Scaffold(
       backgroundColor: Colors.black87,
-      body: SafeArea(
-        child: SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: Padding(
-            padding: EdgeInsets.only(top: 20.sp, left: 16.sp, right: 16.sp),
-            child: GestureDetector(
-              onTap: (){
-                print("Clicked");
-                FocusScope.of(context).unfocus();
+      body: GestureDetector(
+        onTap: (){
+          print("Clicked");
+          FocusScope.of(context).unfocus();
 
-              },
+        },
+        child: SafeArea(
+          child: SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: Padding(
+              padding: EdgeInsets.only(top: 20.sp, left: 16.sp, right: 16.sp),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,

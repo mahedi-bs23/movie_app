@@ -6,6 +6,7 @@ import 'package:movie_app/feature/common/app_module.dart';
 import 'package:movie_app/feature/favourite/favourite_viewmodel.dart';
 import 'package:movie_app/feature/favourite/model/favourite_movie_model.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
+import 'package:movie_app/movie%20details/details_screen_shimmer.dart';
 import 'package:movie_app/movie%20details/details_viewmodel.dart';
 
 class MovieDetails extends StatelessWidget {
@@ -33,9 +34,7 @@ class MovieDetails extends StatelessWidget {
           return Scaffold(
             backgroundColor: Colors.black87,
             body: detailsViewmodel.isLoading.value
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
+                ? const DetailsScreenShimmerLoading()
                 : SafeArea(
                     child: Padding(
                       padding: EdgeInsets.only(left: 20, right: 20, top: 20),
@@ -76,7 +75,7 @@ class MovieDetails extends StatelessWidget {
                             height: 200.sp,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: Colors.white24,
                               borderRadius: BorderRadius.circular(10.r),
                               image: DecorationImage(
                                 image: NetworkImage(

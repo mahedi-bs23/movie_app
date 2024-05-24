@@ -127,10 +127,12 @@ class HomeScreen extends StatelessWidget {
                             width: double.infinity,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
-                              itemCount: homeViewmodel.topMovies.length,
+                              itemCount: homeViewmodelTwo.allMovieData.value!.length,
                               itemBuilder: (context, index) {
                                 return TopMovies(
                                   selectedIndex: index,
+                                  homeViewmodelTwo: homeViewmodelTwo,
+
                                 );
                               },
                               separatorBuilder:
@@ -186,10 +188,11 @@ class HomeScreen extends StatelessWidget {
                             width: double.infinity,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
-                              itemCount: homeViewmodel.topMovies.length,
+                              itemCount: homeViewmodelTwo.allMovieData.value!.length,
                               itemBuilder: (context, index) {
                                 return UpcomingMovies(
                                   selectedIndex: index,
+                                  homeViewmodelTwo: homeViewmodelTwo,
                                 );
                               },
                               separatorBuilder:
