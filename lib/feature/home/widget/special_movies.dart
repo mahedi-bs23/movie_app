@@ -10,7 +10,7 @@ import 'package:movie_app/feature/common/app_module.dart';
 import 'package:movie_app/feature/favourite/favourite_viewmodel.dart';
 import 'package:movie_app/feature/favourite/model/favourite_movie_model.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
-import 'package:movie_app/feature/home/movie_details.dart';
+import 'package:movie_app/movie%20details/details_screen.dart';
 
 class SpecialMovies extends StatelessWidget {
   final HomeViewmodelTwo viewModelTow;
@@ -43,7 +43,7 @@ class SpecialMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   /* _pageController = PageController(initialPage: currentPageNotifier.value);
+    /* _pageController = PageController(initialPage: currentPageNotifier.value);
     _startAutoPageChange();*/
 
     /*final List<Movie> specialMovies =
@@ -52,20 +52,19 @@ class SpecialMovies extends StatelessWidget {
     void showToast(BuildContext context, String contentText, bool isAdded) {
       final scaffold = ScaffoldMessenger.of(context);
       scaffold.showSnackBar(
-         SnackBar(
-
-          backgroundColor: isAdded? Colors.red:Colors.white,
+        SnackBar(
+          backgroundColor: isAdded ? Colors.red : Colors.white,
           dismissDirection: DismissDirection.up,
           behavior: SnackBarBehavior.floating,
           margin: EdgeInsets.only(bottom: 700, left: 20, right: 20),
           content: Text(
             contentText,
+
             ///'Already added into favourite movie',
-            style:  TextStyle(
-              color: isAdded? Colors.white:Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.w600
-            ),
+            style: TextStyle(
+                color: isAdded ? Colors.white : Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w600),
           ),
           duration: Duration(seconds: 2), // Adjust the duration as needed
         ),
@@ -95,8 +94,7 @@ class SpecialMovies extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => MovieDetails(
-                          viewmodel: viewModelTow,
-                          selectedIndex: pagePosition,
+                          movieId: movieList?[pagePosition].id,
                         ),
                       ),
                     );
@@ -330,10 +328,11 @@ class SpecialMovies extends StatelessWidget {
 
                               print("Add Special Movie in Fav: $isPresent");
                               if (isPresent == false) {
-                                showToast(context, "Already added into favourite movie", true);
-                              }
-                              else{
-                                showToast(context, "Added into favourite movie", false);
+                                showToast(context,
+                                    "Already added into favourite movie", true);
+                              } else {
+                                showToast(context, "Added into favourite movie",
+                                    false);
                               }
 
                               print(
@@ -351,7 +350,7 @@ class SpecialMovies extends StatelessWidget {
                         bottom: 10.sp,
                         child: SizedBox(
                           height: 4.sp,
-                          width: 100.sp,
+                          width: 180.sp,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemCount: viewModelTow.allMovieData.value?.length
