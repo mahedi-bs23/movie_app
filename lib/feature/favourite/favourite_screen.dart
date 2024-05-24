@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/add_watchlist_button.dart';
 import 'package:movie_app/feature/common/app_module.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import 'favourite_viewmodel.dart';
 
@@ -51,7 +53,8 @@ class FavouriteScreen extends StatelessWidget {
                       width: 8.sp,
                     ),
                     Text(
-                      "Favourite Movie",
+                      AppLocalizations.of(context)!.favourite_movie,
+                      ///"Favourite Movie",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20.sp,

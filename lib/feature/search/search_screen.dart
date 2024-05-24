@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/movie%20details/details_screen.dart';
 import 'package:movie_app/feature/search/search_viewmodel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
@@ -34,7 +35,9 @@ class SearchScreen extends StatelessWidget {
                     //mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        'Search.',
+                        AppLocalizations.of(context)!.search,
+
+                        ///'Search.',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.sp,

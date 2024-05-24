@@ -12,6 +12,8 @@ import 'package:movie_app/feature/home/widget/home_screen_shimmer.dart';
 import 'package:movie_app/feature/home/widget/special_movies.dart';
 import 'package:movie_app/feature/home/widget/top_movies.dart';
 import 'package:movie_app/feature/home/widget/upcoming_movies.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -44,14 +46,16 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Welcome Back",
+                                    AppLocalizations.of(context)!.welcome,
+                                    ///"Welcome Back",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14.sp,
                                     ),
                                   ),
                                   Text(
-                                    'Movie Hub',
+                                    AppLocalizations.of(context)!.movie_hub,
+                                    ///'Movie Hub',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20.sp,
@@ -88,7 +92,9 @@ class HomeScreen extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                'Top Movie Picks',
+                                AppLocalizations.of(context)!.top_movie,
+
+                                ///'Top Movie Picks',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
@@ -109,7 +115,8 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 },
                                 child: Text(
-                                  'See All',
+                                  AppLocalizations.of(context)!.see_all,
+                                  ///'See All',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white,
@@ -149,7 +156,8 @@ class HomeScreen extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                'Upcoming Movies',
+                                AppLocalizations.of(context)!.upcoming_movie,
+                                ///'Upcoming Movies',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
@@ -170,7 +178,8 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 },
                                 child: Text(
-                                  'See All',
+                                  AppLocalizations.of(context)!.see_all,
+                                  ///'See All',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white,
