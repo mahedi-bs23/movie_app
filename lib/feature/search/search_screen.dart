@@ -65,7 +65,7 @@ class SearchScreen extends StatelessWidget {
                         fillColor: Colors.white24,
                         prefixIcon: Icon(Icons.search),
                         prefixIconColor: Colors.white54,
-                        hintText: "Search...",
+                        hintText: "${AppLocalizations.of(context)!.search}...",
                         hintStyle: const TextStyle(
                           color: Colors.white60,
                         ),
@@ -86,6 +86,7 @@ class SearchScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //MyElevatedButton(buttonText: "buttonText", backgroundColor: Colors.white, buttonTextColor: Colors.black, onPressed: (){}),
                   SizedBox(
                     height: 24.sp,
                   ),
@@ -94,9 +95,9 @@ class SearchScreen extends StatelessWidget {
                       valueListenable: searchViewmodel.suggestionList,
                       builder: (context, suggestionList, _) {
                         if (suggestionList!.isEmpty) {
-                          return const Center(
+                          return  Center(
                             child: Text(
-                              "No movie is found.",
+                              AppLocalizations.of(context)!.no_movie_found,
                               style: TextStyle(color: Colors.white),
                             ),
                           );

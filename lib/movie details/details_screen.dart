@@ -5,9 +5,10 @@ import 'package:movie_app/common/widget/elevated_button.dart';
 import 'package:movie_app/feature/common/app_module.dart';
 import 'package:movie_app/feature/favourite/favourite_viewmodel.dart';
 import 'package:movie_app/feature/favourite/model/favourite_movie_model.dart';
-import 'package:movie_app/feature/home/home_viewmodel_two.dart';
 import 'package:movie_app/movie%20details/details_screen_shimmer.dart';
 import 'package:movie_app/movie%20details/details_viewmodel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class MovieDetails extends StatelessWidget {
   int movieId;
@@ -26,7 +27,7 @@ class MovieDetails extends StatelessWidget {
 
     detailsViewmodel.getMovieDetails(movieId);
 
-    print("Detail Screen; $movieId");
+    ///print("Detail Screen; $movieId");
 
     return ValueListenableBuilder(
         valueListenable: detailsViewmodel.movieDetailsData,
@@ -37,7 +38,7 @@ class MovieDetails extends StatelessWidget {
                 ? const DetailsScreenShimmerLoading()
                 : SafeArea(
                     child: Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+                      padding: const EdgeInsets.only(left: 20, right: 20, top: 20).r,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -199,7 +200,7 @@ class MovieDetails extends StatelessWidget {
                             height: 8.sp,
                           ),
                           MyElevatedButton(
-                            buttonText: "Add To Watchlist",
+                            buttonText: AppLocalizations.of(context)!.add_to_favorite,
                             backgroundColor: Colors.indigoAccent.shade400,
                             buttonTextColor: Colors.white,
                             onPressed: () {

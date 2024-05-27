@@ -1,5 +1,6 @@
 import 'package:movie_app/data/local/local_data_source.dart';
 import 'package:movie_app/feature/favourite/favourite_viewmodel.dart';
+import 'package:movie_app/main_viewmodel.dart';
 
 class FavouriteViewModelSingleton {
   static FavouriteViewmodel? favouriteViewmodel;
@@ -25,6 +26,22 @@ class LocalDataSourceSingleton{
     localDataSource ??= LocalDataSource();
 
     return localDataSource!;
+  }
+
+}
+
+
+
+class MainViewModelSingleton{
+
+
+  static MainViewmodel? mainViewmodel;
+
+  static MainViewmodel getInstance(){
+
+    mainViewmodel ??= MainViewmodel();
+
+    return mainViewmodel!;
   }
 
 }

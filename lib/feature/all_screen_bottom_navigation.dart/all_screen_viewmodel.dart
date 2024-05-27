@@ -3,8 +3,17 @@ import 'package:movie_app/feature/all_screen_bottom_navigation.dart/model/naviga
 import 'package:movie_app/feature/all_screen_bottom_navigation.dart/model/navigation_item_type.dart';
 
 class AllScreenViewModel {
+
+  static AllScreenViewModel? _instance;
+
+  static getInstance() {
+    _instance = _instance ?? AllScreenViewModel();
+    return _instance;
+  }
+
+
   ValueNotifier<NavigationItemType> selectedNavigationMenu =
-      ValueNotifier(NavigationItemType.search);
+      ValueNotifier(NavigationItemType.home);
 
   List<NavigationItemModel> bottomNavigationItems = [
     NavigationItemModel(

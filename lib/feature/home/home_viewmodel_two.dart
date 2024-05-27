@@ -16,6 +16,18 @@ class HomeViewmodelTwo {
 
   MovieRepository movieRepository = MovieRepositoryImpl();
 
+  static HomeViewmodelTwo? _instance;
+
+  static getInstance() {
+    _instance = _instance ?? HomeViewmodelTwo();
+    return _instance;
+  }
+
+
+  HomeViewmodelTwo() {
+    getAllMovie();
+  }
+
   Future getAllMovie() async {
     MovieListResponseModel movieListResponse = await movieRepository.getMovieList();
     _allMovieData.value = movieListResponse.data?.movies;
