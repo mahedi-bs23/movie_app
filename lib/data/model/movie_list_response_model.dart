@@ -30,7 +30,7 @@ class Data {
     if (json['movies'] != null) {
       movies = <Movies>[];
       json['movies'].forEach((v) {
-        movies!.add(new Movies.fromJson(v));
+        movies!.add(Movies.fromJson(v));
       });
     }
   }

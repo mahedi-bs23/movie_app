@@ -9,7 +9,7 @@ class MovieDetailsRepository {
 
   Future<MovieDetailsResponseModel> getMovieDetails(int movieId) async{
 
-    final url = Uri.parse('https://yts.mx/api/v2/movie_details.json?movie_id=$movieId');
+    final url = Uri.parse('https://yts.mx/api/v2/movie_details.json?movie_id=$movieId&with_cast=true');
     final response = await http.get(url);
 
 

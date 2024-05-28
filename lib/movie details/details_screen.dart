@@ -9,7 +9,6 @@ import 'package:movie_app/movie%20details/details_screen_shimmer.dart';
 import 'package:movie_app/movie%20details/details_viewmodel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class MovieDetails extends StatelessWidget {
   int movieId;
 
@@ -27,8 +26,6 @@ class MovieDetails extends StatelessWidget {
 
     detailsViewmodel.getMovieDetails(movieId);
 
-    ///print("Detail Screen; $movieId");
-
     return ValueListenableBuilder(
         valueListenable: detailsViewmodel.movieDetailsData,
         builder: (context, movieList, _) {
@@ -38,276 +35,352 @@ class MovieDetails extends StatelessWidget {
                 ? const DetailsScreenShimmerLoading()
                 : SafeArea(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20, top: 20).r,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 16.sp,
-                          ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.white,
-                                  size: 25.sp,
+                      padding:
+                          const EdgeInsets.only(left: 20, right: 20, top: 20).r,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 16.sp,
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                    size: 25.sp,
+                                  ),
                                 ),
+                                SizedBox(
+                                  width: 8.sp,
+                                ),
+                                Text(
+                                  "Movie Details",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 24.sp,
+                            ),
+                            movieList?.largeCoverImage == null
+                                ? Container(
+                                    height: 200.sp,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white24,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
+                                  )
+                                : Container(
+                                    height: 200.sp,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white24,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          movieList?.largeCoverImage.toString() ??
+                                              "",
+                                        ),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                            SizedBox(
+                              height: 8.sp,
+                            ),
+                            Text(
+                              "History \u2022 Thriller \u2022 Drama \u2022 Mystery",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                                fontSize: 8.sp,
                               ),
-                              SizedBox(
-                                width: 8.sp,
-                              ),
-                              Text(
-                                "Movie Details",
+                            ),
+                            SizedBox(
+                              height: 8.sp,
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                "${movieList?.title}",
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 24.sp,
-                          ),
-                          Container(
-                            height: 200.sp,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.white24,
-                              borderRadius: BorderRadius.circular(10.r),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  movieList?.largeCoverImage.toString() ?? "",
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                  fontSize: 20.sp,
                                 ),
-                                fit: BoxFit.fill,
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 8.sp,
-                          ),
-                          Text(
-                            "History \u2022 Thriller \u2022 Drama \u2022 Mystery",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                              fontSize: 8.sp,
+                            SizedBox(
+                              height: 8.sp,
                             ),
-                          ),
-                          SizedBox(
-                            height: 8.sp,
-                          ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: Text(
-                              "${movieList?.title}",
-                              overflow: TextOverflow.ellipsis,
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 1.sp,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10).r),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 6.sp, vertical: 1.sp),
+                                  child: Text(
+                                    "17+",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 8.sp,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8.sp,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 1.sp,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10).r),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 6.sp, vertical: 1.sp),
+                                  child: Text(
+                                    "${movieList?.year}",
+                                    //"specialMovies[pagePosition].releaseYear ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 8.sp,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8.sp,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 1.sp,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10).r),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 6.sp, vertical: 1.sp),
+                                  child: Text(
+                                    "${movieList?.runtime} min",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 8.sp,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8.sp,
+                            ),
+                            SizedBox(
+                              width: 300.sp,
+                              child: Text(
+                                "${movieList?.descriptionIntro.toString()}",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                  fontSize: 10.sp,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8.sp,
+                            ),
+                            MyElevatedButton(
+                              buttonText:
+                                  AppLocalizations.of(context)!.add_to_favorite,
+                              backgroundColor: Colors.indigoAccent.shade400,
+                              buttonTextColor: Colors.white,
+                              onPressed: () {
+                                favouriteViewmodel.onClickAddToFavourite(
+                                  FavouriteMovieModel(
+                                    name: movieList?.title ?? "",
+                                    image: movieList?.largeCoverImage ?? "",
+                                    releaseYear: movieList?.year.toString() ?? "",
+                                    runtime: movieList?.runtime.toString() ?? "",
+                                    rating: movieList?.rating.toString() ?? " ",
+                                  ),
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              height: 12.sp,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Overall Rating",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      "${movieList?.rating.toString() ?? 1}",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    RatingBar.builder(
+                                      initialRating:
+                                          movieList?.rating.toDouble() / 2.0,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 16.sp,
+                                      unratedColor: Colors.white,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 0.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.amber,
+                                        size: 10.sp,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  height: 80.sp,
+                                  width: 2.sp,
+                                  color: Colors.white,
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Your Rating",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      "0.0",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    RatingBar.builder(
+                                      initialRating: 0.0,
+                                      minRating: 0,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 16.sp,
+                                      unratedColor: Colors.white,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 0.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.amber,
+                                        size: 10.sp,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 4.sp,
+                            ),
+                            Text(
+                              "Cast \u2022 Writer \u2022 Director",
                               style: TextStyle(
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.white,
-                                fontSize: 20.sp,
+                                fontSize: 16.sp,
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 8.sp,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: 1.sp,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10).r),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 6.sp, vertical: 1.sp),
-                                child: Text(
-                                  "17+",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                    fontSize: 8.sp,
-                                  ),
-                                ),
+                            SizedBox(
+                              height: 100.sp,
+                              width: double.infinity,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: movieList?.cast?.length ?? 10,
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 70.sp,
+                                        width: 70.sp,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white24,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              movieList?.cast?[index]
+                                                      .urlSmallImage ??
+                                                  " ",
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                        
+                                      Text(
+                                        movieList?.cast?[index].name.toString() ??
+                                            "no data",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Text(
+                                        movieList?.cast?[index].name.toString() ??
+                                            "no data",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 8.sp,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return SizedBox(
+                                    width: 5.sp,
+                                  );
+                                },
                               ),
-                              SizedBox(
-                                width: 8.sp,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: 1.sp,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10).r),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 6.sp, vertical: 1.sp),
-                                child: Text(
-                                  "${movieList?.year}",
-                                  //"specialMovies[pagePosition].releaseYear ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                    fontSize: 8.sp,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 8.sp,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: 1.sp,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10).r),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 6.sp, vertical: 1.sp),
-                                child: Text(
-                                  "${movieList?.runtime} min",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                    fontSize: 8.sp,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 8.sp,
-                          ),
-                          SizedBox(
-                            width: 300.sp,
-                            child: Text(
-                              "${movieList?.descriptionIntro.toString()}",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                                fontSize: 10.sp,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8.sp,
-                          ),
-                          MyElevatedButton(
-                            buttonText: AppLocalizations.of(context)!.add_to_favorite,
-                            backgroundColor: Colors.indigoAccent.shade400,
-                            buttonTextColor: Colors.white,
-                            onPressed: () {
-                              favouriteViewmodel.onClickAddToFavourite(
-                                FavouriteMovieModel(
-                                  name: movieList?.title ?? "",
-                                  image: movieList?.largeCoverImage ?? "",
-                                  releaseYear: movieList?.year.toString() ?? "",
-                                  runtime: movieList?.runtime
-                                          .toString() ??
-                                      "",
-                                  rating: movieList?.rating
-                                          .toString() ??
-                                      " ",
-                                ),
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            height: 12.sp,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                children: [
-                                  Text(
-                                    "Overall Rating",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Text(
-                                    "${movieList?.rating.toDouble()}",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  RatingBar.builder(
-                                    initialRating:
-                                        movieList?.rating.toDouble() / 2.0,
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemSize: 16.sp,
-                                    unratedColor: Colors.white,
-                                    itemPadding:
-                                        EdgeInsets.symmetric(horizontal: 0.0),
-                                    itemBuilder: (context, _) => Icon(
-                                      Icons.star_rounded,
-                                      color: Colors.amber,
-                                      size: 10.sp,
-                                    ),
-                                    onRatingUpdate: (rating) {
-                                      print(rating);
-                                    },
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                height: 80.sp,
-                                width: 2.sp,
-                                color: Colors.white,
-                              ),
-                              Column(
-                                children: [
-                                  Text(
-                                    "Your Rating",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Text(
-                                    "0.0",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  RatingBar.builder(
-                                    initialRating: 0.0,
-                                    minRating: 0,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemSize: 16.sp,
-                                    unratedColor: Colors.white,
-                                    itemPadding:
-                                        EdgeInsets.symmetric(horizontal: 0.0),
-                                    itemBuilder: (context, _) => Icon(
-                                      Icons.star_rounded,
-                                      color: Colors.amber,
-                                      size: 10.sp,
-                                    ),
-                                    onRatingUpdate: (rating) {
-                                      print(rating);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

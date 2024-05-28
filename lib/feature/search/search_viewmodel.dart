@@ -20,7 +20,7 @@ class SearchViewmodel {
     _debouncer.run(() async {
       MovieListResponseModel movieListResponse = await searchMovieRepository
           .getSearchMovieList(searchTextEditingController.text);
-      _suggestionList.value = [];
+      ///_suggestionList.value = [];
       _suggestionList.value = movieListResponse.data?.movies;
     });
   }

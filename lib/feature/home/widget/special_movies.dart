@@ -372,7 +372,8 @@ class SpecialMovies extends StatelessWidget {
                           viewModelTow.allMovieData.value?.length.toInt() ?? 20,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          width: index == currentPageNotifier.value ? 20.sp : 4.sp,
+                          width:
+                              index == currentPageNotifier.value ? 20.sp : 4.sp,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(2.r),
