@@ -17,10 +17,13 @@ class MovieDetails extends StatelessWidget {
     required this.movieId,
   });
 
-  DetailsViewmodel detailsViewmodel = DetailsViewmodel();
+  final detailsViewmodel = DetailsViewmodel.getInstance();
+
+
 
   @override
   Widget build(BuildContext context) {
+    print("Movie Id in details page: $movieId");
     FavouriteViewmodel favouriteViewmodel =
         FavouriteViewModelSingleton.getInstance();
 
@@ -88,10 +91,45 @@ class MovieDetails extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10.r),
                                       image: DecorationImage(
                                         image: NetworkImage(
-                                          movieList?.largeCoverImage.toString() ??
+                                          movieList?.largeCoverImage
+                                                  .toString() ??
                                               "",
                                         ),
                                         fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        detailsViewmodel.onClickTorrentLaunch(
+                                          "https://yts.mx/torrent/download/8619B57A3F39F1B49A1A698EA5400A883928C0A2",);
+                                        // "https://yts.mx/torrent/download/8619B57A3F39F1B49A1A698EA5400A883928C0A2",
+                                        // "16_Blocks_720p.torrent",
+
+                                        ;
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.black54,
+                                            borderRadius:
+                                                BorderRadius.circular(10).r),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Download ",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 24.sp,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            Icon(
+                                              Icons.file_download_outlined,
+                                              color: Colors.white,
+                                              size: 32.sp,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -132,7 +170,8 @@ class MovieDetails extends StatelessWidget {
                                         color: Colors.white,
                                         width: 1.sp,
                                       ),
-                                      borderRadius: BorderRadius.circular(10).r),
+                                      borderRadius:
+                                          BorderRadius.circular(10).r),
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 6.sp, vertical: 1.sp),
                                   child: Text(
@@ -153,7 +192,8 @@ class MovieDetails extends StatelessWidget {
                                         color: Colors.white,
                                         width: 1.sp,
                                       ),
-                                      borderRadius: BorderRadius.circular(10).r),
+                                      borderRadius:
+                                          BorderRadius.circular(10).r),
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 6.sp, vertical: 1.sp),
                                   child: Text(
@@ -175,7 +215,8 @@ class MovieDetails extends StatelessWidget {
                                         color: Colors.white,
                                         width: 1.sp,
                                       ),
-                                      borderRadius: BorderRadius.circular(10).r),
+                                      borderRadius:
+                                          BorderRadius.circular(10).r),
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 6.sp, vertical: 1.sp),
                                   child: Text(
@@ -218,8 +259,10 @@ class MovieDetails extends StatelessWidget {
                                   FavouriteMovieModel(
                                     name: movieList?.title ?? "",
                                     image: movieList?.largeCoverImage ?? "",
-                                    releaseYear: movieList?.year.toString() ?? "",
-                                    runtime: movieList?.runtime.toString() ?? "",
+                                    releaseYear:
+                                        movieList?.year.toString() ?? "",
+                                    runtime:
+                                        movieList?.runtime.toString() ?? "",
                                     rating: movieList?.rating.toString() ?? " ",
                                   ),
                                 );
@@ -329,10 +372,11 @@ class MovieDetails extends StatelessWidget {
                               width: double.infinity,
                               child: ListView.separated(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: movieList?.cast?.length ?? 10,
+                                itemCount: movieList?.cast?.length ?? 5,
                                 itemBuilder: (context, index) {
                                   return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         height: 70.sp,
@@ -351,9 +395,9 @@ class MovieDetails extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                        
                                       Text(
-                                        movieList?.cast?[index].name.toString() ??
+                                        movieList?.cast?[index].name
+                                                .toString() ??
                                             "no data",
                                         style: TextStyle(
                                             color: Colors.white,
@@ -361,7 +405,8 @@ class MovieDetails extends StatelessWidget {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Text(
-                                        movieList?.cast?[index].name.toString() ??
+                                        movieList?.cast?[index].characterName
+                                                .toString() ??
                                             "no data",
                                         style: TextStyle(
                                             color: Colors.white,

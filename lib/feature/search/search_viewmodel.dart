@@ -6,6 +6,16 @@ import 'package:movie_app/data/repository/search_movie_repository.dart';
 import 'package:movie_app/feature/search/model/debouncer.dart';
 
 class SearchViewmodel {
+
+
+  static SearchViewmodel? searchViewmodel;
+
+  static SearchViewmodel getInstance(){
+    searchViewmodel =  searchViewmodel ?? SearchViewmodel();
+    return searchViewmodel!;
+  }
+
+
   TextEditingController searchTextEditingController = TextEditingController();
 
   final ValueNotifier<List?> _suggestionList = ValueNotifier<List>([]);
@@ -20,8 +30,8 @@ class SearchViewmodel {
     _debouncer.run(() async {
       MovieListResponseModel movieListResponse = await searchMovieRepository
           .getSearchMovieList(searchTextEditingController.text);
-      ///_suggestionList.value = [];
-      _suggestionList.value = movieListResponse.data?.movies;
+      _suggestionList.value = [];
+      _suggestionList.value = movieListResponse.data?.movies ?? [];
     });
   }
 

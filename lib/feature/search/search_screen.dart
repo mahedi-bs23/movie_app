@@ -8,35 +8,36 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
 
-  final SearchViewmodel searchViewmodel = SearchViewmodel();
+  final  searchViewmodel = SearchViewmodel.getInstance();
 
   @override
   Widget build(BuildContext context) {
     /*searchViewmodel.searchTextEditingController
         .addListener(searchViewmodel.onSearchChanged);*/
-    return Scaffold(
-      backgroundColor: Colors.black87,
-      body: SafeArea(
-        child: SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: Padding(
-            padding: EdgeInsets.only(top: 20.sp, left: 16.sp, right: 16.sp),
-            child: GestureDetector(
-              onTap: () {
-                print("Clicked");
-                //FocusScope.of(context).unfocus();
-              },
+
+    //debugPrint("============================== BUILD ============================");
+
+    return GestureDetector(
+      onTap: () {
+        print("Keyboard off Clicked");
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black87,
+        body: SafeArea(
+          child: SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: Padding(
+              padding: EdgeInsets.only(top: 20.sp, left: 16.sp, right: 16.sp),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
-                    //mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         AppLocalizations.of(context)!.search,
-
                         ///'Search.',
                         style: TextStyle(
                             color: Colors.white,
@@ -44,7 +45,9 @@ class SearchScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                       ),
                       const Spacer(),
+
                       Icon(
+
                         Icons.list_alt_rounded,
                         color: Colors.white,
                         size: 24.sp,
@@ -110,25 +113,25 @@ class SearchScreen extends StatelessWidget {
                         return ListView.builder(
                           itemCount: suggestionList.length,
                           itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                print(suggestionList[index].id);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MovieDetails(
-                                        movieId: suggestionList[index].id),
-                                  ),
-                                );
-                              },
-                              child: SizedBox(
-                                height: 700.sp,
-                                width: double.infinity,
-                                child: ListView.separated(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: suggestionList.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
+                            return SizedBox(
+                              height: 700.sp,
+                              width: double.infinity,
+                              child: ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                itemCount: suggestionList.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      print("Search Page ${suggestionList[index].id}");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MovieDetails(
+                                              movieId: suggestionList[index].id.toInt()),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
                                       height: 150.sp,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
@@ -343,15 +346,15 @@ class SearchScreen extends StatelessWidget {
                                           )
                                         ],
                                       ),
-                                    );
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) {
-                                    return SizedBox(
-                                      height: 15.sp,
-                                    );
-                                  },
-                                ),
+                                    ),
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return SizedBox(
+                                    height: 15.sp,
+                                  );
+                                },
                               ),
                             );
                           },

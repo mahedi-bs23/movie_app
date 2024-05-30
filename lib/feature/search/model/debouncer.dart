@@ -12,10 +12,8 @@ class Debouncer {
   });
 
   run(VoidCallback action){
-    if(timer != null) {
-      timer?.cancel();
-    }
-    timer = Timer(Duration(microseconds: milliseconds), action);
+    timer?.cancel();
+    timer = Timer(Duration(milliseconds: milliseconds), action);
   }
 
 
