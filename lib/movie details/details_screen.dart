@@ -19,14 +19,13 @@ class MovieDetails extends StatelessWidget {
 
   final detailsViewmodel = DetailsViewmodel.getInstance();
 
-
-
   @override
   Widget build(BuildContext context) {
     print("Movie Id in details page: $movieId");
     FavouriteViewmodel favouriteViewmodel =
         FavouriteViewModelSingleton.getInstance();
 
+    detailsViewmodel.init();
     detailsViewmodel.getMovieDetails(movieId);
 
     return ValueListenableBuilder(
@@ -101,11 +100,8 @@ class MovieDetails extends StatelessWidget {
                                     child: GestureDetector(
                                       onTap: () async {
                                         detailsViewmodel.onClickTorrentLaunch(
-                                          "https://yts.mx/torrent/download/8619B57A3F39F1B49A1A698EA5400A883928C0A2",);
-                                        // "https://yts.mx/torrent/download/8619B57A3F39F1B49A1A698EA5400A883928C0A2",
-                                        // "16_Blocks_720p.torrent",
-
-                                        ;
+                                          "https://yts.mx/torrent/download/8619B57A3F39F1B49A1A698EA5400A883928C0A2",
+                                        );
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -136,12 +132,34 @@ class MovieDetails extends StatelessWidget {
                             SizedBox(
                               height: 8.sp,
                             ),
-                            Text(
-                              "History \u2022 Thriller \u2022 Drama \u2022 Mystery",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                                fontSize: 8.sp,
+                            SizedBox(
+                              width: double.infinity,
+                              height: 20.sp,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: movieList?.genres?.length ?? 4,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Text(
+                                    movieList?.genres?[index] ?? "null",
+                                    //"History \u2022 Thriller \u2022 Drama \u2022 Mystery",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 8.sp,
+                                    ),
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return Text(
+                                    " \u2022 ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 8.sp,
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                             SizedBox(

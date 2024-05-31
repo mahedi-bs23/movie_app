@@ -57,7 +57,7 @@ class Movie {
   int? year;
   dynamic rating;
   int? runtime;
-  List<String>? genres;
+  List<String?>? genres;
   int? likeCount;
   String? descriptionIntro;
   String? descriptionFull;

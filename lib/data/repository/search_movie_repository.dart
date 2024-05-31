@@ -7,7 +7,16 @@ import 'package:movie_app/data/model/movie_list_response_model.dart';
 
 
 class  SearchMovieRepository {
+
+
+
   Future<MovieListResponseModel> getSearchMovieList(String query) async {
+
+
+
+
+
+
     print("############## Before api call ##############");
 
     final url = Uri.parse('https://yts.mx/api/v2/list_movies.json?query_term=$query');

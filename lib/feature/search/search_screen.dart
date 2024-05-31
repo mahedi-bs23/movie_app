@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/add_watchlist_button.dart';
+import 'package:movie_app/feature/search/widget/bottom_sheet.dart';
 import 'package:movie_app/movie%20details/details_screen.dart';
 import 'package:movie_app/feature/search/search_viewmodel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
 
-  final  searchViewmodel = SearchViewmodel.getInstance();
+  ValueNotifier<String> selectedItem = ValueNotifier('');
+
+  final searchViewmodel = SearchViewmodel.getInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +20,7 @@ class SearchScreen extends StatelessWidget {
 
     //debugPrint("============================== BUILD ============================");
 
+    bool? isSelectedGenres;
     return GestureDetector(
       onTap: () {
         print("Keyboard off Clicked");
@@ -38,6 +42,7 @@ class SearchScreen extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.search,
+
                         ///'Search.',
                         style: TextStyle(
                             color: Colors.white,
@@ -45,13 +50,24 @@ class SearchScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                       ),
                       const Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            backgroundColor: Colors.grey.shade800,
+                            context: context,
+                            builder: (context) {
+                              return SearchFilterBottomSheet(
 
-                      Icon(
-
-                        Icons.list_alt_rounded,
-                        color: Colors.white,
-                        size: 24.sp,
-                      )
+                              );
+                            },
+                          );
+                        },
+                        child: Icon(
+                          Icons.movie_filter_outlined,
+                          color: Colors.white,
+                          size: 24.sp,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -59,9 +75,8 @@ class SearchScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     child: TextFormField(
-                      controller:
-                      searchViewmodel.searchTextEditingController,
-                      onChanged: (String value){
+                      controller: searchViewmodel.searchTextEditingController,
+                      onChanged: (String value) {
                         searchViewmodel.onSearchChanged();
                       },
                       style: const TextStyle(color: Colors.white54),
@@ -72,8 +87,7 @@ class SearchScreen extends StatelessWidget {
                         fillColor: Colors.white24,
                         prefixIcon: const Icon(Icons.search),
                         prefixIconColor: Colors.white54,
-                        hintText:
-                        "${AppLocalizations.of(context)!.search}...",
+                        hintText: "${AppLocalizations.of(context)!.search}...",
                         hintStyle: const TextStyle(
                           color: Colors.white60,
                         ),
@@ -122,12 +136,15 @@ class SearchScreen extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      print("Search Page ${suggestionList[index].id}");
+                                      print(
+                                          "Search Page ${suggestionList[index].id}");
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => MovieDetails(
-                                              movieId: suggestionList[index].id.toInt()),
+                                              movieId: suggestionList[index]
+                                                  .id
+                                                  .toInt()),
                                         ),
                                       );
                                     },
@@ -180,13 +197,46 @@ class SearchScreen extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    "History \u2022 Thriller \u2022 Drama \u2022 Mystery",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.white,
-                                                      fontSize: 8.sp,
+                                                  SizedBox(
+                                                    width: double.infinity,
+                                                    height: 20.sp,
+                                                    child: ListView.separated(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemCount:
+                                                          suggestionList[index]
+                                                              .genres
+                                                              .length,
+                                                      itemBuilder:
+                                                          (BuildContext context,
+                                                              int genresIndex) {
+                                                        return Text(
+                                                          suggestionList[index]
+                                                                      .genres?[
+                                                                  genresIndex] ??
+                                                              "null",
+                                                          //"History \u2022 Thriller \u2022 Drama \u2022 Mystery",
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: Colors.white,
+                                                            fontSize: 8.sp,
+                                                          ),
+                                                        );
+                                                      },
+                                                      separatorBuilder:
+                                                          (BuildContext context,
+                                                              int index) {
+                                                        return Text(
+                                                          " \u2022 ",
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: Colors.white,
+                                                            fontSize: 8.sp,
+                                                          ),
+                                                        );
+                                                      },
                                                     ),
                                                   ),
                                                   SizedBox(
