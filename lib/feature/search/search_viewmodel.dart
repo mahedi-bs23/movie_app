@@ -93,14 +93,6 @@ class SearchViewmodel {
         isSelected: false,
       ),
       GenresDataModel(
-        labelText: "Crime",
-        isSelected: false,
-      ),
-      GenresDataModel(
-        labelText: "War",
-        isSelected: false,
-      ),
-      GenresDataModel(
         labelText: "Musical",
         isSelected: false,
       ),
@@ -108,12 +100,16 @@ class SearchViewmodel {
         labelText: "Mystery",
         isSelected: false,
       ),
+      GenresDataModel(
+        labelText: "Crime",
+        isSelected: false,
+      ),
+      GenresDataModel(
+        labelText: "War",
+        isSelected: false,
+      ),
     ],
   );
-  List<String> sortBy = ["title", "year", "rating", "peers", "seeds"];
-  ValueNotifier<bool> isSelectedSortBy = ValueNotifier(false);
-  ValueNotifier<String> selectedItemSortBy = ValueNotifier('');
-
 
   List<String> selectedGenreList = [];
 
@@ -136,9 +132,23 @@ class SearchViewmodel {
     genresDataList.value = [...genresDataList.value];
   }
 
-  void onSelectedSortByItem(bool isSelected, String selectedItem){
+  List<String> sortBy = ["title", "year", "rating", "peers", "seeds"];
+  ValueNotifier<bool> isSelectedSortBy = ValueNotifier(false);
+  ValueNotifier<String> selectedItemSortBy = ValueNotifier('');
+
+  void onSelectedSortByItem(bool isSelected, String selectedItem) {
     selectedItemSortBy.value = selectedItem;
     isSelectedSortBy.value = isSelected;
+  }
+
+
+  List<String> orderBy = ["Asc", "Desc"];
+  ValueNotifier<bool> isSelectedOrderBy = ValueNotifier(false);
+  ValueNotifier<String> selectedItemOrderBy = ValueNotifier('');
+
+  onSelectedOrderByItem(bool isSelected, String selectedItem){
+    selectedItemOrderBy.value = selectedItem;
+    isSelectedOrderBy.value = isSelected;
   }
 
   void dispose() {}
