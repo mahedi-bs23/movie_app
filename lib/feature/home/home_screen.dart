@@ -1,10 +1,6 @@
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/feature/home/home_viewmodel.dart';
 import 'package:movie_app/feature/home/model/movie_list_category.dart';
 import 'package:movie_app/feature/home/see_all_movies.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
@@ -18,7 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  HomeViewmodel homeViewmodel = HomeViewmodel();
+  //HomeViewmodel homeViewmodel = HomeViewmodel();
   HomeViewmodelTwo homeViewmodelTwo = HomeViewmodelTwo.getInstance();
 
   @override
@@ -80,18 +76,19 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             height: 16.sp,
                           ),
-                          ValueListenableBuilder(
-                            valueListenable: homeViewmodelTwo.allMovieData,
-                            builder: (context, allMovieData, _) {
-                              return SizedBox(
-                                width: double.infinity,
-                                height: 220.sp,
-                                child: SpecialMovies(
-                                  viewModelTow: homeViewmodelTwo,
-                                ),
-                              );
-                            },
-                          ),
+
+                          // StreamBuilder(
+                          //   stream: homeViewmodelTwo.movieDataStream,
+                          //   builder: (context, allMovieData) {
+                          //     return SizedBox(
+                          //       width: double.infinity,
+                          //       height: 220.sp,
+                          //       child: SpecialMovies(
+                          //         viewModelTow: homeViewmodelTwo,
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                           SizedBox(
                             height: 24.sp,
                           ),

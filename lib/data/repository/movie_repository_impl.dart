@@ -19,7 +19,6 @@ class MovieRepositoryImpl extends MovieRepository {
     print("############## after api call ################");
     print("Status code repo class : ${response.statusCode}");
 
-
     return MovieListResponseModel.fromJson(jsonDecode(response.body));
   }
 }

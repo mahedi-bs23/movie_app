@@ -1,21 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/common/widget/add_watchlist_button.dart';
-import 'package:movie_app/feature/home/home_viewmodel.dart';
 import 'package:movie_app/feature/home/model/movie_list_category.dart';
 
 class SeeAllMovies extends StatelessWidget {
   final MovieListCategory movieListCategory;
 
-  HomeViewmodel viewmodel = HomeViewmodel();
 
   SeeAllMovies({
     super.key,
     required this.movieListCategory,
   }) {
-    viewmodel.onInit(movieListCategory);
+    //viewmodel.onInit(movieListCategory);
   }
 
   @override

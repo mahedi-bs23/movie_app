@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/feature/home/home_viewmodel.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
-import 'package:movie_app/feature/home/model/movie_model.dart';
 import 'package:movie_app/movie%20details/details_screen.dart';
 
 class UpcomingMovies extends StatelessWidget {
@@ -15,10 +12,7 @@ class UpcomingMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Movie> upcomingMovies =
-        HomeViewmodel().upcomingMovies; // Access the topMovies list
 
-    //final Movie selectedMovie = upcomingMovies[selectedIndex];
 
     return ValueListenableBuilder(
         valueListenable: homeViewmodelTwo.allMovieData,
@@ -44,7 +38,7 @@ class UpcomingMovies extends StatelessWidget {
                     color: Colors.white24,
                     image: DecorationImage(
                       image: NetworkImage(
-                        movieList?[selectedIndex].mediumCoverImage ?? " ",
+                        movieList?[selectedIndex].largeCoverImage ?? " ",
                       ),
                       fit: BoxFit.cover,
                     ),
