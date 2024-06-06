@@ -15,12 +15,8 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*searchViewmodel.searchTextEditingController
-        .addListener(searchViewmodel.onSearchChanged);*/
 
-    //debugPrint("============================== BUILD ============================");
-
-    bool? isSelectedGenres;
+    debugPrint("============================== BUILD ============================");
     return GestureDetector(
       onTap: () {
         print("Keyboard off Clicked");
@@ -161,7 +157,7 @@ class SearchScreen extends StatelessWidget {
                                           Expanded(
                                             flex: 2,
                                             child: suggestionList[index]
-                                                        .mediumCoverImage ==
+                                                        .image ==
                                                     null
                                                 ? const SizedBox.shrink()
                                                 : Container(

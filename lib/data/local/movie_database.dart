@@ -14,18 +14,21 @@ class MovieDatabase {
   static const String timeField = 'time';
   static const String ratingField = 'rating';
 
-  static Database? _database;
 
-  static final MovieDatabase _instance = MovieDatabase._constructor();
+  static MovieDatabase? instence;
 
-  MovieDatabase._constructor();
-
-  factory MovieDatabase() {
-    return _instance;
+  static  getInstance(){
+    instence  = instence ?? MovieDatabase();
+    return instence!;
   }
 
+
+  static Database? _database;
+
   Future<Database> get database async {
-    if (_database != null) return _database!;
+    if (_database != null) {
+      return _database!;
+    }
     _database = await initDatabase();
     return _database!;
   }
@@ -37,7 +40,7 @@ class MovieDatabase {
       databasePath,
       onCreate: (db, version) {
         db.execute('''
-        CREATE TABLE IF NOT EXISTS $tableName (
+        CREATE TABLE $tableName (
           $idField INTEGER PRIMARY KEY AUTOINCREMENT,
           $apiIdField INTEGER,
           $titleField TEXT,
@@ -53,26 +56,26 @@ class MovieDatabase {
     return database;
   }
 
-  Future<void> insertData(List<MovieModel> movies) async {
-    final db = await database;
+  Future<void> insertMovieData(List<MovieModel?> movies) async {
+    final Database db = await database;
+
     for (var movie in movies) {
       await db.insert(
         tableName,
-        movie.toMap(),
+        movie!.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
-  }
-
-  Future<List<MovieModel>> getMovieList() async {
-    final db = await database;
+    }
+  Stream<List<MovieModel?>> getLocalMovieData() async* {
+    final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query(tableName);
 
-    return List.generate(
-      maps.length,
-          (i) {
-        return MovieModel.fromMap(maps[i]);
-      },
-    );
+    List<MovieModel?> movies = List.generate(maps.length, (i) {
+      return MovieModel.fromMap(maps[i]);
+    });
+
+    yield movies;
+
   }
 }

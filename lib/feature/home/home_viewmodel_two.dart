@@ -1,55 +1,56 @@
 import 'package:flutter/foundation.dart';
-import 'package:movie_app/data/local/local_data_source.dart';
 import 'package:movie_app/data/local/local_movie_repository.dart';
-import 'package:movie_app/data/model/movie_list_response_model.dart';
+import 'package:movie_app/data/local/movie_database.dart';
 import 'package:movie_app/data/repository/movie_repository.dart';
 import 'package:movie_app/data/repository/movie_repository_impl.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
-import 'package:sqflite/sqflite.dart';
-
-import 'model/movie_database.dart';
 
 class HomeViewmodelTwo {
+  final MovieDatabase movieDatabaseHelper =
+      MovieDatabase.getInstance();
+
   final ValueNotifier<bool> _isLoading = ValueNotifier(true);
+
   ValueListenable<bool> get isLoading => _isLoading;
 
-  ValueNotifier<List<Movies>?> _allMovieData = ValueNotifier(null);
-  ValueListenable<List?> get allMovieData => _allMovieData;
+  final ValueNotifier<List<MovieModel?>> _allMovieData = ValueNotifier([]);
 
+  ValueListenable<List<MovieModel?>>? get allMovieData => _allMovieData;
+
+  final ValueNotifier<List<MovieModel?>> _localMovieData = ValueNotifier([]);
+
+  ValueListenable<List<MovieModel?>> get localMovieData => _localMovieData;
+
+  late final Stream<List<MovieModel?>> _movieDataStream;
+
+  Stream<List<MovieModel?>> get movieDataStream => _movieDataStream;
 
   LocalMovieRepository localMovieRepo = LocalMovieRepository.getInstance();
-
-
   MovieRepository movieRepository = MovieRepositoryImpl();
 
   static HomeViewmodelTwo? _instance;
 
-  static getInstance() {
+  static HomeViewmodelTwo getInstance(MovieDatabase movieDatabaseHelper) {
     _instance = _instance ?? HomeViewmodelTwo();
-    return _instance;
+    return _instance!;
   }
 
   HomeViewmodelTwo() {
-    fetchData();
+    _movieDataStream =
+        movieDatabaseHelper.getLocalMovieData().asBroadcastStream();
+    fetchMovieData();
   }
 
-   void fetchData() async {
-    _allMovieData.value = await localMovieRepo.fetchData();
-    print(_allMovieData.value?.length);
+  fetchMovieData() {
+    _localMovieData.value = [];
+    if (kDebugMode) {
+      _movieDataStream.listen(
+        (movieList) {
+          print("movie list length in HomeviewModel: ${movieList.length}");
+          _localMovieData.value = movieList;
+        },
+      );
+    }
     _isLoading.value = false;
-   }
-
-  //
-  // Stream<List<Movies>>? _movieDataStream;
-  // Stream<List<Movies>>? get movieDataStream => _movieDataStream;
-  //
-  // Future getAllMovie() async {
-  //
-  //   //_movieDataStream = localMovieRepo.fetchData();
-  //   //_isLoading.value = true;
-  //
-  //   _allMovieData.value = await localMovieRepo.fetchData();
-  // }
+  }
 }
-
-

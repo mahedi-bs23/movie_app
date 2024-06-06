@@ -278,7 +278,7 @@ class MovieDetails extends StatelessWidget {
                                     name: movieList?.title ?? "",
                                     image: movieList?.largeCoverImage ?? "",
                                     releaseYear:
-                                        movieList?.year.toString() ?? "",
+                                        movieList?.year ?? 2024,
                                     runtime:
                                         movieList?.runtime.toString() ?? "",
                                     rating: movieList?.rating.toString() ?? " ",

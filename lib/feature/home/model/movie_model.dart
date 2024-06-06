@@ -1,23 +1,23 @@
 class MovieModel {
-  final int apiId;
-  final String title;
-  final String image;
-  final int releaseYear;
-  final int time;
-  final double rating;
+  final int? id;
+  final String? title;
+  final String? image;
+  final int? releaseYear;
+  final int? time;
+  final double? rating;
 
   MovieModel({
-    required this.apiId,
-    required this.title,
-    required this.image,
-    required this.releaseYear,
-    required this.time,
-    required this.rating,
+     this.id,
+     this.title,
+     this.image,
+     this.releaseYear,
+     this.time,
+     this.rating,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'apiId': apiId,
+      'apiId': id,
       'title': title,
       'image': image,
       'release_year': releaseYear,
@@ -28,7 +28,7 @@ class MovieModel {
 
   static MovieModel fromMap(Map<String, dynamic> map) {
     return MovieModel(
-      apiId: map['apiId'],
+      id: map['apiId'],
       title: map['title'],
       image: map['image'],
       releaseYear: map['release_year'],

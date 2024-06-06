@@ -175,7 +175,7 @@ class FavouriteScreen extends StatelessWidget {
                                                   horizontal: 5.sp,
                                                   vertical: 1.sp),
                                               child: Text(
-                                                movieList[index].releaseYear,
+                                                "${movieList[index].releaseYear}",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   color: Colors.white,

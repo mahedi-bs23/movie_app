@@ -1,7 +1,7 @@
 class FavouriteMovieModel {
   final String name;
   final String image;
-  final String releaseYear;
+  final int releaseYear;
   final String runtime;
   final String rating;
 

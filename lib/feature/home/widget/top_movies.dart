@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
@@ -13,24 +14,19 @@ class TopMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*final List<Movie> topMovies =
-        HomeViewmodel().topMovies;*/ // Access the topMovies list
-
-    /*final Movie selectedMovie =
-        topMovies[selectedIndex];*/ // Retrieve the selected movie
 
     return ValueListenableBuilder(
-      valueListenable: homeViewmodelTwo.allMovieData,
+      valueListenable: homeViewmodelTwo.localMovieData,
       builder: (context, movieList, _) {
         return GestureDetector(
           onTap: () {
-            Navigator.push(
+            /*Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
                     MovieDetails(movieId: movieList?[selectedIndex].id),
               ),
-            );
+            );*/
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,8 +37,8 @@ class TopMovies extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white24,
                   image: DecorationImage(
-                    image: NetworkImage(
-                      movieList?[selectedIndex].largeCoverImage ?? " ",
+                    image: CachedNetworkImageProvider(
+                      movieList[selectedIndex]?.image ?? " ",
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -53,7 +49,7 @@ class TopMovies extends StatelessWidget {
               SizedBox(
                 width: 100.sp,
                 child: Text(
-                  movieList?[selectedIndex].title,
+                  movieList[selectedIndex]?.title ?? " ",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Colors.white,

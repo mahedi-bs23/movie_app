@@ -4,6 +4,7 @@ import 'package:shimmer/shimmer.dart';
 
 Widget buildShimmerEffect() {
   return Shimmer.fromColors(
+
     baseColor: Colors.grey[500]!,
     highlightColor: Colors.grey[200]!,
     child: Padding(

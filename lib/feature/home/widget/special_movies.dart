@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/common/widget/add_watchlist_button.dart';
@@ -11,8 +12,10 @@ import 'package:movie_app/feature/favourite/model/favourite_movie_model.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
 import 'package:movie_app/movie%20details/details_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:path/path.dart';
 
 class SpecialMovies extends StatelessWidget {
+
   final HomeViewmodelTwo viewModelTow;
 
   SpecialMovies({
@@ -38,7 +41,7 @@ class SpecialMovies extends StatelessWidget {
   }*/
 
   FavouriteViewmodel favouriteViewmodel =
-      FavouriteViewModelSingleton.getInstance();
+  FavouriteViewModelSingleton.getInstance();
   LocalDataSource localDataSource = LocalDataSourceSingleton.getInstance();
 
   @override
@@ -73,14 +76,14 @@ class SpecialMovies extends StatelessWidget {
       valueListenable: currentPageNotifier,
       builder: (context, currentPage, _) {
         return ValueListenableBuilder(
-          valueListenable: viewModelTow.allMovieData,
+          valueListenable: viewModelTow.localMovieData,
           builder: (context, movieList, _) {
             return Stack(
               children: [
                 PageView.builder(
                   // controller: _pageController,
                   pageSnapping: true,
-                  itemCount: viewModelTow.allMovieData.value!.length.toInt(),
+                  itemCount: movieList.length.toInt(),
 
                   ///controller: _pageController,
                   onPageChanged: (index) {
@@ -93,19 +96,20 @@ class SpecialMovies extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MovieDetails(
-                              movieId: movieList?[pagePosition].id,
-                            ),
+                            builder: (context) =>
+                                MovieDetails(
+                                  movieId: movieList[pagePosition]?.id ?? 100,
+                                ),
                           ),
                         );
                       },
                       child: Stack(
                         children: [
                           ValueListenableBuilder(
-                            valueListenable: viewModelTow.allMovieData,
+                            valueListenable: viewModelTow.localMovieData,
                             builder: (context, allMovieDataList, _) {
-                              ///debugPrint("============================== $url =============");
-                              if (movieList?[pagePosition].largeCoverImage ==
+                              ///debugPrint("==================== $url =============");
+                              if (movieList[pagePosition]?.image ==
                                   "") {
                                 return const SizedBox.shrink();
                               }
@@ -113,13 +117,17 @@ class SpecialMovies extends StatelessWidget {
                                 width: double.infinity,
                                 height: 220.sp,
                                 decoration: BoxDecoration(
+                                  color: Colors.white24,
                                   image: DecorationImage(
-                                    image: NetworkImage(
-                                      movieList?[pagePosition].largeCoverImage,
+                                    image: CachedNetworkImageProvider(
+                                      movieList[pagePosition]
+                                          ?.image ?? "",
                                     ),
                                     fit: BoxFit.fill,
                                   ),
-                                  borderRadius: BorderRadius.circular(15).r,
+                                  borderRadius: BorderRadius
+                                      .circular(15)
+                                      .r,
                                 ),
                               );
                             },
@@ -129,7 +137,9 @@ class SpecialMovies extends StatelessWidget {
                             height: 220.sp,
                             decoration: BoxDecoration(
                               color: Colors.black45,
-                              borderRadius: BorderRadius.circular(15).r,
+                              borderRadius: BorderRadius
+                                  .circular(15)
+                                  .r,
                             ),
                           ),
                           Positioned(
@@ -140,7 +150,7 @@ class SpecialMovies extends StatelessWidget {
                               // Clip the filter to half
                               child: BackdropFilter(
                                 filter:
-                                    ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                                ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
                                 // Adjust blur intensity as needed
                                 child: Container(
                                   height: 70.sp,
@@ -168,14 +178,16 @@ class SpecialMovies extends StatelessWidget {
                             child: ClipRect(
                               child: BackdropFilter(
                                 filter:
-                                    ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                                ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 6.sp,
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white12,
-                                    borderRadius: BorderRadius.circular(4).r,
+                                    borderRadius: BorderRadius
+                                        .circular(4)
+                                        .r,
                                     border: Border.all(
                                       color: Colors.white,
                                       width: .5.sp,
@@ -192,7 +204,7 @@ class SpecialMovies extends StatelessWidget {
                                         width: 2.sp,
                                       ),
                                       Text(
-                                        "${viewModelTow.allMovieData.value?[pagePosition].rating}",
+                                        "${movieList[pagePosition]?.rating}",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Colors.white,
@@ -215,7 +227,7 @@ class SpecialMovies extends StatelessWidget {
                                 SizedBox(
                                   width: 200.sp,
                                   child: Text(
-                                    "${viewModelTow.allMovieData.value?[pagePosition].title}",
+                                    "${movieList[pagePosition]?.title}",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -244,7 +256,9 @@ class SpecialMovies extends StatelessWidget {
                                             width: .5.sp,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(10).r),
+                                          BorderRadius
+                                              .circular(10)
+                                              .r),
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 5.sp, vertical: 1.sp),
                                       child: Text(
@@ -266,11 +280,14 @@ class SpecialMovies extends StatelessWidget {
                                             width: .5.sp,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(10).r),
+                                          BorderRadius
+                                              .circular(10)
+                                              .r),
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 5.sp, vertical: 1.sp),
                                       child: Text(
-                                        "${viewModelTow.allMovieData.value?[pagePosition].year}",
+                                        "${movieList[pagePosition]
+                                            ?.releaseYear}",
                                         //"specialMovies[pagePosition].releaseYear ",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
@@ -289,11 +306,13 @@ class SpecialMovies extends StatelessWidget {
                                             width: .5.sp,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(10).r),
+                                          BorderRadius
+                                              .circular(10)
+                                              .r),
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 5.sp, vertical: 1.sp),
                                       child: Text(
-                                        "${viewModelTow.allMovieData.value?[pagePosition].runtime} min",
+                                        "${movieList[pagePosition]?.time} min",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Colors.white,
@@ -313,24 +332,21 @@ class SpecialMovies extends StatelessWidget {
                             child: SizedBox(
                               height: 20.h,
                               width: 80.w,
-                              child: AddWatchlistButton(
+                              /*child: AddWatchlistButton(
                                 buttonText: AppLocalizations.of(context)!
                                     .add_to_favorite,
                                 onPressed: () async {
                                   bool isPresent = await favouriteViewmodel
                                       .onClickAddToFavourite(
                                     FavouriteMovieModel(
-                                      name: movieList?[pagePosition].title,
-                                      image: movieList?[pagePosition]
+                                      name: movieList[pagePosition].title,
+                                      image: movieList![pagePosition]
                                           .largeCoverImage,
-                                      releaseYear: movieList?[pagePosition]
-                                              .year
-                                              .toString() ??
-                                          "",
-                                      runtime: movieList?[pagePosition]
+                                      releaseYear: movieList[pagePosition].releaseYear.toInt(),
+                                      runtime: movieList?[pagePosition]?
                                               .runtime
                                               .toString() ??
-                                          "",
+                                          2,
                                       rating: movieList?[pagePosition]
                                               .rating
                                               .toString() ??
@@ -349,7 +365,7 @@ class SpecialMovies extends StatelessWidget {
                                         "Added into favourite movie", false);
                                   }
                                 },
-                              ),
+                              ),*/
                             ),
                           ),
 
@@ -369,11 +385,11 @@ class SpecialMovies extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount:
-                          viewModelTow.allMovieData.value?.length.toInt() ?? 20,
+                      20,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           width:
-                              index == currentPageNotifier.value ? 20.sp : 4.sp,
+                          index == currentPageNotifier.value ? 20.sp : 4.sp,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(2.r),

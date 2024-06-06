@@ -15,16 +15,16 @@ class UpcomingMovies extends StatelessWidget {
 
 
     return ValueListenableBuilder(
-        valueListenable: homeViewmodelTwo.allMovieData,
+        valueListenable: homeViewmodelTwo.localMovieData,
         builder: (context, movieList, _) {
           return GestureDetector(
             onTap: () {
-              print(movieList?[selectedIndex].id);
+              print(movieList?[selectedIndex]?.id);
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => MovieDetails(
-                      movieId: movieList?[selectedIndex].id),
+                      movieId: movieList[selectedIndex]?.id ?? 100),
                 ),
               );
             },
@@ -38,7 +38,7 @@ class UpcomingMovies extends StatelessWidget {
                     color: Colors.white24,
                     image: DecorationImage(
                       image: NetworkImage(
-                        movieList?[selectedIndex].largeCoverImage ?? " ",
+                        movieList?[selectedIndex]?.image ?? " ",
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -52,7 +52,7 @@ class UpcomingMovies extends StatelessWidget {
                   width: 100.sp,
                   child: Text(
                     overflow: TextOverflow.ellipsis,
-                    movieList?[selectedIndex].title,
+                    movieList[selectedIndex]?.title ?? "no data",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
