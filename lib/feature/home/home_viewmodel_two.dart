@@ -1,21 +1,19 @@
 import 'package:flutter/foundation.dart';
 import 'package:movie_app/data/local/local_movie_repository.dart';
 import 'package:movie_app/data/local/movie_database.dart';
+import 'package:movie_app/data/local/new_local_data_source.dart';
+import 'package:movie_app/data/remote/api_client.dart';
 import 'package:movie_app/data/repository/movie_repository.dart';
 import 'package:movie_app/data/repository/movie_repository_impl.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
 
 class HomeViewmodelTwo {
-  final MovieDatabase movieDatabaseHelper =
+  final MovieDatabase movieDatabase =
       MovieDatabase.getInstance();
 
   final ValueNotifier<bool> _isLoading = ValueNotifier(true);
 
   ValueListenable<bool> get isLoading => _isLoading;
-
-  final ValueNotifier<List<MovieModel?>> _allMovieData = ValueNotifier([]);
-
-  ValueListenable<List<MovieModel?>>? get allMovieData => _allMovieData;
 
   final ValueNotifier<List<MovieModel?>> _localMovieData = ValueNotifier([]);
 
@@ -25,19 +23,27 @@ class HomeViewmodelTwo {
 
   Stream<List<MovieModel?>> get movieDataStream => _movieDataStream;
 
-  LocalMovieRepository localMovieRepo = LocalMovieRepository.getInstance();
-  MovieRepository movieRepository = MovieRepositoryImpl();
+  MovieRepository movieRepository;
 
   static HomeViewmodelTwo? _instance;
 
   static HomeViewmodelTwo getInstance(MovieDatabase movieDatabaseHelper) {
-    _instance = _instance ?? HomeViewmodelTwo();
+    _instance = _instance ??
+        HomeViewmodelTwo(
+          movieRepository: MovieRepositoryImpl(
+            apiClient: ApiClient(),
+            localDataSource: NewLocalDataSource(
+              movieDatabase: MovieDatabase(),
+            ),
+          ),
+        );
     return _instance!;
   }
 
-  HomeViewmodelTwo() {
-    _movieDataStream =
-        movieDatabaseHelper.getLocalMovieData().asBroadcastStream();
+  HomeViewmodelTwo({
+    required this.movieRepository
+  }) {
+    _movieDataStream = movieRepository.getMovieList().asBroadcastStream();
     fetchMovieData();
   }
 
@@ -46,8 +52,9 @@ class HomeViewmodelTwo {
     if (kDebugMode) {
       _movieDataStream.listen(
         (movieList) {
-          print("movie list length in HomeviewModel: ${movieList.length}");
           _localMovieData.value = movieList;
+          print("movie list length in HomeviewModel: ${movieList.length}");
+
         },
       );
     }

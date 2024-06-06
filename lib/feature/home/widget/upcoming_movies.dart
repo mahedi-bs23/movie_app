@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/feature/home/home_viewmodel_two.dart';
@@ -37,8 +38,8 @@ class UpcomingMovies extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white24,
                     image: DecorationImage(
-                      image: NetworkImage(
-                        movieList?[selectedIndex]?.image ?? " ",
+                      image: CachedNetworkImageProvider(
+                        movieList[selectedIndex]?.image ?? " ",
                       ),
                       fit: BoxFit.cover,
                     ),

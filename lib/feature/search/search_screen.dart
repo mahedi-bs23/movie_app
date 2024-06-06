@@ -9,7 +9,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
 
-  ValueNotifier<String> selectedItem = ValueNotifier('');
 
   final searchViewmodel = SearchViewmodel.getInstance();
 
@@ -17,6 +16,7 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     debugPrint("============================== BUILD ============================");
+
     return GestureDetector(
       onTap: () {
         print("Keyboard off Clicked");
@@ -157,7 +157,7 @@ class SearchScreen extends StatelessWidget {
                                           Expanded(
                                             flex: 2,
                                             child: suggestionList[index]
-                                                        .image ==
+                                                        .largeCoverImage ==
                                                     null
                                                 ? const SizedBox.shrink()
                                                 : Container(
@@ -166,7 +166,7 @@ class SearchScreen extends StatelessWidget {
                                                       image: DecorationImage(
                                                         image: NetworkImage(
                                                           suggestionList[index]
-                                                              .mediumCoverImage
+                                                              .largeCoverImage
                                                               .toString(),
                                                         ),
                                                         fit: BoxFit.cover,
@@ -238,13 +238,18 @@ class SearchScreen extends StatelessWidget {
                                                   SizedBox(
                                                     height: 4.sp,
                                                   ),
-                                                  Text(
-                                                    suggestionList[index].title,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.white,
-                                                      fontSize: 16.sp,
+                                                  SizedBox(
+                                                    height: 50.sp,
+                                                    child: Text(
+                                                      suggestionList[index].title,
+                                                      maxLines: 2,
+                                                      style: TextStyle(
+                                                        overflow: TextOverflow.ellipsis,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white,
+                                                        fontSize: 16.sp,
+                                                      ),
                                                     ),
                                                   ),
                                                   SizedBox(

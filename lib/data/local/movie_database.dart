@@ -14,14 +14,12 @@ class MovieDatabase {
   static const String timeField = 'time';
   static const String ratingField = 'rating';
 
-
   static MovieDatabase? instence;
 
-  static  getInstance(){
-    instence  = instence ?? MovieDatabase();
+  static getInstance() {
+    instence = instence ?? MovieDatabase();
     return instence!;
   }
-
 
   static Database? _database;
 
@@ -54,28 +52,5 @@ class MovieDatabase {
       version: 1,
     );
     return database;
-  }
-
-  Future<void> insertMovieData(List<MovieModel?> movies) async {
-    final Database db = await database;
-
-    for (var movie in movies) {
-      await db.insert(
-        tableName,
-        movie!.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-    }
-  Stream<List<MovieModel?>> getLocalMovieData() async* {
-    final Database db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(tableName);
-
-    List<MovieModel?> movies = List.generate(maps.length, (i) {
-      return MovieModel.fromMap(maps[i]);
-    });
-
-    yield movies;
-
   }
 }

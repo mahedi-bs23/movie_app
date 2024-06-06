@@ -16,7 +16,7 @@ class SearchFilterBottomSheet extends StatelessWidget {
         padding: EdgeInsets.all(16.r),
         height: 700,
         width: double.infinity,
-        //color: Colors.white54,
+        //color: Colors.black,
         child: Column(
           ///mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,7 +195,12 @@ class SearchFilterBottomSheet extends StatelessWidget {
             ),
             const Spacer(),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                searchViewmodel.onSearchChanged();
+                Navigator.pop(context);
+
+
+              },
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 6).r,

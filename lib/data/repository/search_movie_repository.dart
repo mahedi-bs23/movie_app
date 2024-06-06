@@ -10,16 +10,12 @@ class  SearchMovieRepository {
 
 
 
-  Future<MovieListResponseModel> getSearchMovieList(String query) async {
-
-
-
-
+  Future<MovieListResponseModel> getSearchMovieList(String title, String sortBy, String orderBy) async {
 
 
     print("############## Before api call ##############");
 
-    final url = Uri.parse('https://yts.mx/api/v2/list_movies.json?query_term=$query');
+    final url = Uri.parse('https://yts.mx/api/v2/list_movies.json?query_term=$title&sort_by=$sortBy&order_by=$orderBy');
     final response = await http.get(url);
 
     print("############## after api call ################");

@@ -30,7 +30,7 @@ Widget buildShimmerEffect() {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   width: 24.sp,
                   height: 24.sp,

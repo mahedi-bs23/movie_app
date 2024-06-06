@@ -1,3 +1,5 @@
+import 'package:movie_app/data/model/movie_list_response_model.dart';
+
 class MovieModel {
   final int? id;
   final String? title;
@@ -34,6 +36,17 @@ class MovieModel {
       releaseYear: map['release_year'],
       time: map['time'],
       rating: map['rating'],
+    );
+  }
+
+  factory MovieModel.fromMovies(Movies movie) {
+    return MovieModel(
+      id: movie.id,
+      title: movie.title,
+      image: movie.largeCoverImage,
+      releaseYear: movie.year,
+      time: movie.runtime,
+      rating: movie.rating.toDouble()
     );
   }
 }

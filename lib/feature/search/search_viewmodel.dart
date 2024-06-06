@@ -22,7 +22,7 @@ class SearchViewmodel {
 
   ValueListenable<List?> get suggestionList => _suggestionList;
 
-  final List<Movies> _tempSuggestionList = [];
+  final List<Movies?> _tempSuggestionList = [];
 
   SearchMovieRepository searchMovieRepository = SearchMovieRepository();
 
@@ -31,25 +31,33 @@ class SearchViewmodel {
   void onSearchChanged() {
     _debouncer.run(
       () async {
-        MovieListResponseModel movieListResponse = await searchMovieRepository
-            .getSearchMovieList(searchTextEditingController.text);
+        MovieListResponseModel movieListResponse =
+            await searchMovieRepository.getSearchMovieList(
+          searchTextEditingController.text,
+              selectedItemSortBy.value,
+              selectedItemOrderBy.value,
+        );
         _suggestionList.value = [];
         _suggestionList.value = movieListResponse.data?.movies ?? [];
+
+        print('Search Viewmodel111 : ${_suggestionList.value?.length}');
 
         if (_suggestionList.value != null) {
           _tempSuggestionList.clear();
           for (var item in _suggestionList.value!) {
             bool isGenreContain =
                 selectedGenreList.any((genre) => item.genres.contains(genre));
-            //print(item.genres);
             if (isGenreContain) {
               _tempSuggestionList.add(item);
             }
             //print(isGenreContain);
           }
         }
-        _suggestionList.value = [];
-        _suggestionList.value = _tempSuggestionList;
+        if (_tempSuggestionList.isNotEmpty) {
+          _suggestionList.value = [];
+          _suggestionList.value = _tempSuggestionList;
+        }
+        print('Search Viewmodel22 : ${_suggestionList.value?.length}');
       },
     );
   }
@@ -132,7 +140,7 @@ class SearchViewmodel {
     genresDataList.value = [...genresDataList.value];
   }
 
-  List<String> sortBy = ["title", "year", "rating", "peers", "seeds"];
+  List<String> sortBy = ["title", "year", "rating", "like_count"];
   ValueNotifier<bool> isSelectedSortBy = ValueNotifier(false);
   ValueNotifier<String> selectedItemSortBy = ValueNotifier('');
 
@@ -141,12 +149,11 @@ class SearchViewmodel {
     isSelectedSortBy.value = isSelected;
   }
 
-
-  List<String> orderBy = ["Asc", "Desc"];
+  List<String> orderBy = ["asc", "desc"];
   ValueNotifier<bool> isSelectedOrderBy = ValueNotifier(false);
   ValueNotifier<String> selectedItemOrderBy = ValueNotifier('');
 
-  onSelectedOrderByItem(bool isSelected, String selectedItem){
+  onSelectedOrderByItem(bool isSelected, String selectedItem) {
     selectedItemOrderBy.value = selectedItem;
     isSelectedOrderBy.value = isSelected;
   }

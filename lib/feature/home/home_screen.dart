@@ -13,14 +13,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-
-  //HomeViewmodel homeViewmodel = HomeViewmodel();
-  HomeViewmodelTwo homeViewmodelTwo =
+  final HomeViewmodelTwo homeViewmodelTwo =
       HomeViewmodelTwo.getInstance(MovieDatabase());
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("============================== BUILD ============================");
+    ///debugPrint("============================== BUILD ============================");
 
     return ValueListenableBuilder(
       valueListenable: homeViewmodelTwo.isLoading,
