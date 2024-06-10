@@ -1,37 +1,50 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:movie_app/theme/theme_model.dart';
 
 class SettingViewmodel {
-
-
   static SettingViewmodel? _instance;
 
-  static getInstance() {
-    _instance = _instance ?? SettingViewmodel();
-    return _instance;
+  static SettingViewmodel getInstance() {
+    _instance ??= SettingViewmodel._internal();
+    return _instance!;
   }
 
+  final ThemeModel themeModel = ThemeModel(
+    lightTheme: ThemeModel.light,
+    darkTheme: ThemeModel.dark,
+  );
 
-  ValueNotifier<bool> isDark = ValueNotifier(true);
   ValueNotifier<Language> language = ValueNotifier(Language.english);
+  ValueNotifier<bool> isDark = ValueNotifier(true);
+  late ValueNotifier<ThemeData> currentTheme;
 
-  void onLanguageChanged(Language language) {
-    this.language.value = language;
-    print(this.language.value);
-
+  SettingViewmodel._internal() {
+    currentTheme = ValueNotifier(themeModel.darkTheme);
   }
 
+  void onThemeChange() {
+    isDark.value = !isDark.value;
+    currentTheme.value = isDark.value ? themeModel.darkTheme : themeModel.lightTheme;
+    print(currentTheme);
+    print("isDark ${isDark.value}");
+  }
+
+  void onLanguageChanged(Language newLanguage) {
+    language.value = newLanguage;
+    print(language.value.getLocal());
+  }
 }
 
-  enum Language {
-    english,
-    bangla;
+enum Language {
+  english,
+  bangla;
 
-    String getLocal() {
-      switch (this) {
-        case Language.english:
-          return 'en';
-        case Language.bangla:
-          return 'bn';
-      }
+  String getLocal() {
+    switch (this) {
+      case Language.english:
+        return 'en';
+      case Language.bangla:
+        return 'bn';
     }
   }
+}

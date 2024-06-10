@@ -8,7 +8,10 @@
     "see_all": "সব দেখুন",
     "no_movie_found": "কোন চলচ্চিত্র পাওয়া যায়নি.",
     "add_to_favorite": "পছন্দের তালিকায় যোগ করুন",
-    "settings" : "সেটিংস"
+    "settings" : "সেটিংস",
+    "theme": "থিম",
+    "language": "ভাষা"
+
 
 
 }

@@ -25,7 +25,7 @@ class FavouriteScreen extends StatelessWidget {
 
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
         child: Padding(
           padding:
@@ -50,7 +50,7 @@ class FavouriteScreen extends StatelessWidget {
 
                       ///"Favourite Movie",
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.primary,
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w600),
                     ),

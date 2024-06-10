@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
       valueListenable: homeViewmodelTwo.isLoading,
       builder: (context, movieDataStream, _) {
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: Theme.of(context).primaryColor,
           body: homeViewmodelTwo.isLoading.value==true
               ? buildShimmerEffect()
               : SafeArea(
@@ -49,19 +49,16 @@ class HomeScreen extends StatelessWidget {
                                         AppLocalizations.of(context)!.welcome,
 
                                         ///"Welcome Back",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.sp,
-                                        ),
+                                        style: Theme.of(context).textTheme.bodySmall!/*(
+                                          *//*color: ,
+                                          fontSize: 14.sp,*//*
+                                        ),*/
                                       ),
                                       Text(
                                         AppLocalizations.of(context)!.movie_hub,
 
                                         ///'Movie Hub',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.w600),
+                                        style: Theme.of(context).textTheme.bodyLarge!
                                       ),
                                     ],
                                   ),

@@ -11,7 +11,9 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      ///backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).primaryColor,
+
       body: SafeArea(
         child: Padding(
           padding:
@@ -22,17 +24,16 @@ class SettingScreen extends StatelessWidget {
                 Text(
                   AppLocalizations.of(context)!.settings,
                   //"Settings",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.bodyLarge!,
                 ),
                 SizedBox(
                   height: 40.sp,
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white10,
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    //color: Colors.white10,
+                    //
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Column(
@@ -46,9 +47,10 @@ class SettingScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Text(
-                                  "Theme",
+                                  AppLocalizations.of(context)!.theme,
+                                  //"Theme",
                                   style: TextStyle(
-                                      color: Colors.white60,
+                                      color: Theme.of(context).colorScheme.secondary,
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -56,7 +58,7 @@ class SettingScreen extends StatelessWidget {
                                 Text(
                                   isDark ? "Dark Mode" : "Light Mode",
                                   style: TextStyle(
-                                      color: Colors.white60,
+                                      color: Theme.of(context).colorScheme.secondary,
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w400),
                                 ),
@@ -72,7 +74,7 @@ class SettingScreen extends StatelessWidget {
                                         Colors.greenAccent.shade700,
                                     value: isDark,
                                     onChanged: (bool value) {
-                                      settingViewmodel.isDark.value = value;
+                                      settingViewmodel.onThemeChange();
                                     },
                                   ),
                                 ),
@@ -91,9 +93,10 @@ class SettingScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              "Language",
+                              AppLocalizations.of(context)!.language,
+                              //"Language",
                               style: TextStyle(
-                                  color: Colors.white60,
+                                  color: Theme.of(context).colorScheme.secondary,
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -104,7 +107,7 @@ class SettingScreen extends StatelessWidget {
                                   ? "English"
                                   : "বাংলা",
                               style: TextStyle(
-                                  color: Colors.white60,
+                                  color: Theme.of(context).colorScheme.secondary,
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w400),
                             ),
@@ -117,80 +120,9 @@ class SettingScreen extends StatelessWidget {
                               },
                               child: Icon(
                                 Icons.keyboard_arrow_right,
-                                color: Colors.white60,
+                                color: Theme.of(context).colorScheme.secondary,
                                 size: 18.sp,
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(
-                        thickness: .5.sp,
-                        height: 5.sp,
-                        color: Colors.grey,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 18.sp, horizontal: 16.sp),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Theme",
-                              style: TextStyle(
-                                  color: Colors.white60,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const Spacer(),
-                            Text(
-                              "Dark Mode",
-                              style: TextStyle(
-                                  color: Colors.white60,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              width: 8.sp,
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_right,
-                              color: Colors.white60,
-                              size: 18.sp,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(
-                        thickness: .5.sp,
-                        height: 5.sp,
-                        color: Colors.grey,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(16.r),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Language",
-                              style: TextStyle(
-                                  color: Colors.white60,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const Spacer(),
-                            Text(
-                              "none",
-                              style: TextStyle(
-                                  color: Colors.white60,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              width: 8.sp,
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_right,
-                              color: Colors.white60,
-                              size: 18.sp,
                             ),
                           ],
                         ),
@@ -211,6 +143,7 @@ class SettingScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           actions: [
             GestureDetector(
               onTap: () {

@@ -23,7 +23,7 @@ class SearchScreen extends StatelessWidget {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.black87,
+        backgroundColor: Theme.of(context).primaryColor,
         body: SafeArea(
           child: SizedBox(
             height: double.infinity,
@@ -41,7 +41,7 @@ class SearchScreen extends StatelessWidget {
 
                         ///'Search.',
                         style: TextStyle(
-                            color: Colors.white,
+                            color:Theme.of(context).colorScheme.primary,
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w600),
                       ),
@@ -61,7 +61,7 @@ class SearchScreen extends StatelessWidget {
                         },
                         child: Icon(
                           Icons.movie_filter_outlined,
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.primary,
                           size: 24.sp,
                         ),
                       ),
@@ -77,29 +77,29 @@ class SearchScreen extends StatelessWidget {
                         searchViewmodel.onSearchChanged();
                       },
                       style: const TextStyle(color: Colors.white54),
-                      cursorColor: Colors.white,
+                      cursorColor: Theme.of(context).colorScheme.primary,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white24,
-                        prefixIcon: const Icon(Icons.search),
+                        prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.primary,),
                         prefixIconColor: Colors.white54,
                         hintText: "${AppLocalizations.of(context)!.search}...",
-                        hintStyle: const TextStyle(
-                          color: Colors.white60,
+                        hintStyle:  TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30).r,
                           borderSide: BorderSide(
                             width: 1.r,
-                            color: Colors.white60,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30).r,
                           borderSide: BorderSide(
                             width: 1.r,
-                            color: Colors.white60,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
@@ -116,7 +116,8 @@ class SearchScreen extends StatelessWidget {
                           return Center(
                             child: Text(
                               AppLocalizations.of(context)!.no_movie_found,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Theme.of(context).colorScheme.primary,
+                            ),
                             ),
                           );
                         }

@@ -26,7 +26,7 @@ class HomeViewmodelTwo {
 
   static HomeViewmodelTwo? _instance;
 
-  static HomeViewmodelTwo getInstance(MovieDatabase movieDatabaseHelper) {
+  static HomeViewmodelTwo getInstance(MovieDatabase movieDatabase) {
     _instance = _instance ??
         HomeViewmodelTwo(
           movieRepository: MovieRepositoryImpl(
