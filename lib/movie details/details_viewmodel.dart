@@ -20,7 +20,7 @@ class DetailsViewmodel {
   ValueNotifier<Movie?> movieDetailsData = ValueNotifier(null);
   final ValueNotifier<bool> _isLoading = ValueNotifier(true);
 
-  void init (){
+  void init(){
      movieDetailsData.value = null;
     _isLoading.value = true;
   }

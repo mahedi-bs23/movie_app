@@ -43,7 +43,7 @@ class AllScreenViewModel {
   ];
 
   void onChangedSelectedNavigation(int index) {
-    print(bottomNavigationItems[index].navigationItemType);
+   // print(bottomNavigationItems[index].navigationItemType);
     selectedNavigationMenu.value = bottomNavigationItems[index].navigationItemType;
   }
 }

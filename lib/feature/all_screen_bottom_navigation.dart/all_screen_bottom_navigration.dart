@@ -6,7 +6,7 @@ import 'package:movie_app/feature/all_screen_bottom_navigation.dart/model/naviga
 class AllScreenBottomNavigation extends StatelessWidget {
   AllScreenBottomNavigation({super.key});
 
-  AllScreenViewModel viewModel = AllScreenViewModel.getInstance();
+  final AllScreenViewModel viewModel = AllScreenViewModel.getInstance();
 
   @override
   Widget build(BuildContext context) {

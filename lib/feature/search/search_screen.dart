@@ -15,7 +15,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    debugPrint("============================== BUILD ============================");
+    debugPrint("============================== SEARCH SCREEN BUILD ============================");
 
     return GestureDetector(
       onTap: () {
@@ -49,7 +49,8 @@ class SearchScreen extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           showModalBottomSheet(
-                            backgroundColor: Colors.grey.shade800,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
                             context: context,
                             builder: (context) {
                               return SearchFilterBottomSheet(

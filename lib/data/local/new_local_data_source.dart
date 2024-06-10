@@ -1,8 +1,13 @@
+
 import 'package:movie_app/data/local/movie_database.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
 import 'package:sqflite/sqflite.dart';
 
+
 class NewLocalDataSource {
+
+  static const String fileName = "movie_database";
+
   MovieDatabase movieDatabase;
 
   NewLocalDataSource({required this.movieDatabase});
@@ -28,4 +33,14 @@ class NewLocalDataSource {
     });
     return movies;
   }
+
+
+  Future<void> deleteAllMovieFromTable() async{
+    final Database db = await movieDatabase.database;
+    await db.delete(MovieDatabase.tableName);
+  }
+
+
+
+
 }

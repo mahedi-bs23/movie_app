@@ -1,4 +1,3 @@
-import 'package:movie_app/feature/home/model/movie_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

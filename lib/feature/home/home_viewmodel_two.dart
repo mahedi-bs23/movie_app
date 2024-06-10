@@ -8,8 +8,7 @@ import 'package:movie_app/data/repository/movie_repository_impl.dart';
 import 'package:movie_app/feature/home/model/movie_model.dart';
 
 class HomeViewmodelTwo {
-  final MovieDatabase movieDatabase =
-      MovieDatabase.getInstance();
+  final MovieDatabase movieDatabase = MovieDatabase.getInstance();
 
   final ValueNotifier<bool> _isLoading = ValueNotifier(true);
 
@@ -40,9 +39,7 @@ class HomeViewmodelTwo {
     return _instance!;
   }
 
-  HomeViewmodelTwo({
-    required this.movieRepository
-  }) {
+  HomeViewmodelTwo({required this.movieRepository}) {
     _movieDataStream = movieRepository.getMovieList().asBroadcastStream();
     fetchMovieData();
   }
@@ -54,7 +51,6 @@ class HomeViewmodelTwo {
         (movieList) {
           _localMovieData.value = movieList;
           print("movie list length in HomeviewModel: ${movieList.length}");
-
         },
       );
     }

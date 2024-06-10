@@ -2,8 +2,8 @@ class FavouriteMovieModel {
   final String name;
   final String image;
   final int releaseYear;
-  final String runtime;
-  final String rating;
+  final int runtime;
+  final double rating;
 
   FavouriteMovieModel({
     required this.name,

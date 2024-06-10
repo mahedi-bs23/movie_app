@@ -280,8 +280,8 @@ class MovieDetails extends StatelessWidget {
                                     releaseYear:
                                         movieList?.year ?? 2024,
                                     runtime:
-                                        movieList?.runtime.toString() ?? "",
-                                    rating: movieList?.rating.toString() ?? " ",
+                                        movieList?.runtime?.toInt() ?? 2,
+                                    rating: movieList?.rating?.toDouble() ?? 5.5,
                                   ),
                                 );
                               },

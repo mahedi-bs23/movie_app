@@ -7,7 +7,8 @@
     "upcoming_movie": "Upcoming Movie",
     "see_all": "See All",
     "no_movie_found": "No movie is founds",
-    "add_to_favorite":"Add to Favorites"
+    "add_to_favorite":"Add to Favorites",
+    "settings" : "Settings"
 
 
 }

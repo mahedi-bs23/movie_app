@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, movieDataStream, _) {
         return Scaffold(
           backgroundColor: Colors.black,
-          body: homeViewmodelTwo.isLoading.value
+          body: homeViewmodelTwo.isLoading.value==true
               ? buildShimmerEffect()
               : SafeArea(
                   child: Padding(

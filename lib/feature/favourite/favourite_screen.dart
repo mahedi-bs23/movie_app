@@ -4,13 +4,10 @@ import 'package:movie_app/common/widget/add_watchlist_button.dart';
 import 'package:movie_app/feature/common/app_module.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 import 'favourite_viewmodel.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({super.key});
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +23,13 @@ class FavouriteScreen extends StatelessWidget {
 
     }*/
 
-    print(
-        "Watchlist in Favourite class: ${favouriteViewmodel.watchList.value.length}");
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsets.only(top: 20.sp, left: 20.sp, right: 20.sp, bottom: 0),
+              EdgeInsets.only(top: 20.sp, left: 16.sp, right: 16.sp, bottom: 0),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -49,11 +45,9 @@ class FavouriteScreen extends StatelessWidget {
                         size: 25.sp,
                       ),
                     ),*/
-                    SizedBox(
-                      width: 8.sp,
-                    ),
                     Text(
                       AppLocalizations.of(context)!.favourite_movie,
+
                       ///"Favourite Movie",
                       style: TextStyle(
                           color: Colors.white,
@@ -70,7 +64,7 @@ class FavouriteScreen extends StatelessWidget {
                   builder: (context, movieList, _) {
                     return SizedBox(
                       ///height: 500.sp,
-                      height: MediaQuery.of(context).size.height-185.sp,
+                      height: MediaQuery.of(context).size.height - 185.sp,
                       width: double.infinity,
                       child: ListView.separated(
                         scrollDirection: Axis.vertical,
@@ -199,7 +193,7 @@ class FavouriteScreen extends StatelessWidget {
                                                   horizontal: 5.sp,
                                                   vertical: 1.sp),
                                               child: Text(
-                                                movieList[index].runtime,
+                                                "${movieList[index].runtime}",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   color: Colors.white,
@@ -221,7 +215,7 @@ class FavouriteScreen extends StatelessWidget {
                                               width: 2.sp,
                                             ),
                                             Text(
-                                              movieList[index].rating,
+                                              "${movieList[index].rating}",
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white,

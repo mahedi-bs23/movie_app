@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/feature/common/app_module.dart';
+import 'package:movie_app/feature/setting/setting_viewmodel.dart';
 import 'package:movie_app/main_viewmodel.dart';
 import 'package:sqflite/sqflite.dart';
 import 'feature/all_screen_bottom_navigation.dart/all_screen_bottom_navigration.dart';
@@ -26,8 +27,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MainViewmodel mainViewmodel = MainViewModelSingleton.getInstance();
+    SettingViewmodel settingViewmodel = SettingViewmodel.getInstance();
     return ScreenUtilInit(builder: (context, child) {
-      return ValueListenableBuilder(valueListenable: mainViewmodel.language,
+      return ValueListenableBuilder(valueListenable: settingViewmodel.language,
         builder: (context, language, _){
           return MaterialApp(
             debugShowCheckedModeBanner: false,

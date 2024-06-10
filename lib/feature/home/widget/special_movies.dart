@@ -332,25 +332,18 @@ class SpecialMovies extends StatelessWidget {
                             child: SizedBox(
                               height: 20.h,
                               width: 80.w,
-                              /*child: AddWatchlistButton(
+                              child: AddWatchlistButton(
                                 buttonText: AppLocalizations.of(context)!
                                     .add_to_favorite,
                                 onPressed: () async {
                                   bool isPresent = await favouriteViewmodel
                                       .onClickAddToFavourite(
                                     FavouriteMovieModel(
-                                      name: movieList[pagePosition].title,
-                                      image: movieList![pagePosition]
-                                          .largeCoverImage,
-                                      releaseYear: movieList[pagePosition].releaseYear.toInt(),
-                                      runtime: movieList?[pagePosition]?
-                                              .runtime
-                                              .toString() ??
-                                          2,
-                                      rating: movieList?[pagePosition]
-                                              .rating
-                                              .toString() ??
-                                          " ",
+                                      name: movieList[pagePosition]?.title?.toString() ?? " ",
+                                      image: movieList[pagePosition]?.image?.toString() ?? " ",
+                                      releaseYear: movieList[pagePosition]?.releaseYear?.toInt() ?? 2024,
+                                      runtime: movieList[pagePosition]?.time?.toInt() ?? 2,
+                                      rating: movieList[pagePosition]?.rating?.toDouble() ?? 5.5,
                                     ),
                                   );
 
@@ -365,7 +358,7 @@ class SpecialMovies extends StatelessWidget {
                                         "Added into favourite movie", false);
                                   }
                                 },
-                              ),*/
+                              ),
                             ),
                           ),
 
