@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "797502910459",
+    "project_id": "movie-app-social-login",
+    "storage_bucket": "movie-app-social-login.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797502910459:android:e6b845ea9f0f41a8d6a55e",
+        "android_client_info": {
+          "package_name": "com.example.movie_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYEq7DbYmQraskbvl6L4Sgnr6SH6bsCGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

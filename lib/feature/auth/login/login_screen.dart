@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movie_app/common/widget/elevated_button.dart';
 import 'package:movie_app/common/widget/email_text_field.dart';
 import 'package:movie_app/common/widget/password_text_field.dart';
@@ -15,6 +17,26 @@ class LoginScreen extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
+      'email',
+    ]).signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
   @override
   Widget build(BuildContext context) {
     loginViewmodel.shouldNavigate.addListener(() {
@@ -27,8 +49,8 @@ class LoginScreen extends StatelessWidget {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please correct the errors in the form.'),
+          const SnackBar(
+            content: Text('Plea se correct the errors in the form.'),
           ),
         );
       }
@@ -42,7 +64,7 @@ class LoginScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80).r,
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              children: [
+              children: <Widget>[
                 Text(
                   'Welcome Back',
                   style: TextStyle(
@@ -65,8 +87,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 ValueListenableBuilder(
                   valueListenable: loginViewmodel.emailController,
-                  builder: (BuildContext context,
-                      emailController, _) {
+                  builder: (BuildContext context, emailController, _) {
                     return EmailTexTField(
                       emailTextEditingController:
                           loginViewmodel.emailController,
@@ -105,9 +126,11 @@ class LoginScreen extends StatelessWidget {
                   height: 40.sp,
                 ),
                 _loginButton(),
-                SizedBox(height: 16.sp,),
-                _googleSignInButton(),
+                SizedBox(
+                  height: 16.sp,
+                ),
 
+                _googleSignInButton(context),
               ],
             ),
           ),
@@ -115,7 +138,6 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _loginButton() {
     return MyElevatedButton(
@@ -130,17 +152,37 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _googleSignInButton() {
+  Widget _googleSignInButton(BuildContext context) {
+
     return MyElevatedButton(
       buttonText: 'Google Sign In',
       backgroundColor: Colors.white,
       buttonTextColor: Colors.black,
       // Set your desired background color
-      onPressed: () {
-        loginViewmodel.onLoginButtonClicked();
-        print('Button clicked!');
+      onPressed: () async {
+        try {
+          final credential = await signInWithGoogle();
+
+          // Handle successful sign-in here, e.g., navigate to the next screen
+          print('Google Sign-In successful: ${credential.user?.displayName}');
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AllScreenBottomNavigation()));
+        } catch (e) {
+          // Handle sign-in errors here
+          print('Error signing in with Google: $e');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Error signing in with Google. Please try again.',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          );
+        }
       },
     );
   }
-
 }

@@ -29,6 +29,8 @@ class MyElevatedButton extends StatelessWidget {
         buttonText,
         style: TextStyle(
           color: buttonTextColor,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w600
         ),
       ),
     );
