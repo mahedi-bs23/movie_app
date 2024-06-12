@@ -8,6 +8,7 @@ import 'package:movie_app/common/widget/email_text_field.dart';
 import 'package:movie_app/common/widget/password_text_field.dart';
 import 'package:movie_app/feature/all_screen_bottom_navigation.dart/all_screen_bottom_navigration.dart';
 import 'package:movie_app/feature/auth/login/login_viewmodel.dart';
+import 'package:movie_app/feature/auth/signup/singup_screen.dart';
 import 'package:movie_app/feature/home/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -131,6 +132,38 @@ class LoginScreen extends StatelessWidget {
                 ),
 
                 _googleSignInButton(context),
+                SizedBox(
+                  height: 8.sp,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account? ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignupScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          color: Colors.blue.shade500,
+                          fontSize: 18.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -153,7 +186,6 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _googleSignInButton(BuildContext context) {
-
     return MyElevatedButton(
       buttonText: 'Google Sign In',
       backgroundColor: Colors.white,

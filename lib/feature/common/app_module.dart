@@ -10,9 +10,7 @@ class FavouriteViewModelSingleton {
      return favouriteViewmodel!;
   }*/
   static FavouriteViewmodel getInstance() {
-    if (favouriteViewmodel == null) {
-      favouriteViewmodel = FavouriteViewmodel();
-    }
+    favouriteViewmodel ??= FavouriteViewmodel();
     return favouriteViewmodel!;
   }
 }
